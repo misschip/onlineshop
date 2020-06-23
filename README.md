@@ -24,7 +24,8 @@ CREATE TABLE manager (
 
 CREATE TABLE category (
     id NUMBER PRIMARY KEY,
-    name VARCHAR2(50) NOT NULL
+    root_category VARCHAR2(50) NOT NULL,
+    sub_category VARCHAR2(50)
 );
 
 CREATE TABLE product (
