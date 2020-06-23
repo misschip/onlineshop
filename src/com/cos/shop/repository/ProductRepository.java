@@ -26,12 +26,19 @@ public class ProductRepository {
 	
 	
 	public int save(Product product) {
-		final String SQL = "";
+		final String SQL = "INSERT INTO product (id,category_id,name,description,price) VALUES (PRODUCT_SEQ.NEXTVAL,?,?,?,?)";
 		
 		try {
 			conn = DBConn.getConnection();
 			pstmt = conn.prepareStatement(SQL);
 			
+			pstmt.setInt(1, product.getCategory_id());
+			pstmt.setString(2, product.getName());
+			pstmt.setString(3, product.getDescription());
+			pstmt.setInt(4, product.getPrice());
+			
+			int result = pstmt.executeUpdate();
+			return result;
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -45,12 +52,17 @@ public class ProductRepository {
 	
 	
 	public int update(Product product) {
-		final String SQL = "";
+		final String SQL = "UPDATE product SET category_id = ?, name = ?, description = ?, price = ? WHERE id = ?";
 		
 		try {
 			conn = DBConn.getConnection();
 			pstmt = conn.prepareStatement(SQL);
 			
+			pstmt.setInt(1, product.getCategory_id());
+			pstmt.setString(2, product.getName());
+			pstmt.setString(3, product.getDescription());
+			pstmt.setInt(4, product.getPrice());
+			pstmt.setInt(5, product.getId());
 			
 			return pstmt.executeUpdate();
 		} catch (Exception e) {
@@ -86,7 +98,7 @@ public class ProductRepository {
 	
 	
 	public List<Product> findAll() {
-		final String SQL = "SELECT  FROM product";
+		final String SQL = "SELECT id,category_id,name,description,price FROM product";
 		List<Product> products = new ArrayList<>();
 		
 		try {
@@ -99,7 +111,10 @@ public class ProductRepository {
 			while(rs.next()) {
 				Product product = Product.builder()
 						.id(rs.getInt("id"))
-						
+						.category_id(rs.getInt("category_id"))
+						.name(rs.getString("name"))
+						.description(rs.getString("description"))
+						.price(rs.getInt("price"))
 						.build();
 				
 				products.add(product);

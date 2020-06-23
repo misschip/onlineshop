@@ -11,5 +11,6 @@ import lombok.NoArgsConstructor;
 @Builder
 public class Category {
 	private int id;
-	private String name;
+	private String root_category;
+	private String sub_category;
 }
