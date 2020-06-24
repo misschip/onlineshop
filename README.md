@@ -18,6 +18,7 @@ CREATE TABLE manager (
     id NUMBER PRIMARY KEY,
     username VARCHAR2(50) NOT NULL,
     password VARCHAR2(50) NOT NULL,
+    phone VARCHAR(15) NOT NULL,
     email VARCHAR2(50) NOT NULL
 );
 
@@ -113,6 +114,9 @@ CREATE TABLE item (
 ````
 
 ## 샘플 데이터 입력
+
+### Category 테이블
+
 ````sql
 INSERT INTO CATEGORY VALUES(1,'의류/잡화','여성의류');
 INSERT INTO CATEGORY VALUES(2,'의류/잡화','남성의류');
@@ -153,6 +157,50 @@ INSERT INTO CATEGORY VALUES(31,'여행/도서/티켓','도서/음반');
 INSERT INTO CATEGORY VALUES(32,'여행/도서/티켓','공연티켓');
 ````
 
+### Customer 테이블
+
+````sql
+INSERT INTO customer values (1,'ssar','1234','010-1111-2222','ssar@nate.com','부산시 중구',sysdate);
+INSERT INTO customer values (2,'ssarmango','1234','010-2222-2222','ssarmango@nate.com','부산시 남구',sysdate);
+INSERT INTO customer values (3,'ssardo','1234','010-1111-3333','ssardo@nate.com','부산시 해운대구',sysdate);
+INSERT INTO customer values (4,'ssari','1234','010-3333-2222','ssari@nate.com','부산시 사하구',sysdate);
+INSERT INTO customer values (5,'hong','1234','010-3333-3333','hong@nate.com','부산시 북구',sysdate);
+INSERT INTO customer values (6,'kim','1234','010-5555-1111','kim@nate.com','부산시 진구',sysdate);
+INSERT INTO customer values (7,'lim','1234','010-6666-2222','lim@nate.com','김해시',sysdate);
+INSERT INTO customer values (8,'choi','1234','010-7777-2222','choi@nate.com','양산시',sysdate);
+INSERT INTO customer values (9,'park','1234','010-1111-8888','park@nate.com','경상남도',sysdate);
+````
+
+### Manager 테이블
+
+````sql
+INSERT INTO manager values (1,'admin2','1234','010-1111-2222','admin2@nate.com');
+INSERT INTO manager values (2,'kimbujang','1234','010-2222-2222','kimbujang@nate.com');
+INSERT INTO manager values (3,'chaderi','1234','010-1111-3333','chaderi@nate.com');
+INSERT INTO manager values (4,'leegajang','1234','010-3333-2222','leegajang@nate.com');
+INSERT INTO manager values (5,'parksajang','1234','010-3333-3333','parksajang@nate.com');
+INSERT INTO manager values (6,'hanbujang','1234','010-5555-1111','hanbujang@nate.com');
+INSERT INTO manager values (7,'kimjuim','1234','010-6666-2222','kimjuim@nate.com');
+INSERT INTO manager values (8,'bekjuim','1234','010-7777-2222','bekjuim@nate.com');
+INSERT INTO manager values (9,'parkjuim','1234','010-1111-8888','parkjuim@nate.com');
+````
+
+### Product 테이블
+
+````sql
+INSERT INTO product VALUES (1,2,'티셔츠','부드러우면서 베이직한 핏에 다양한 사이즈 선택이 가능',100);
+INSERT INTO product VALUES (2,8,'성주 꿀참외','우등생 성주참외 산지직송 정품 로얄과 2.5kg (7~12개)',150);
+INSERT INTO product VALUES (3,8,'소양강 찰토마토','소양강 찰토마토 10kg 쥬스용 못난이 강원도 산지직송',110);
+INSERT INTO product VALUES (4,9,'볶음땅콩','볶음땅콩 3.75kg 알큰사이즈 햇 19년산',120);
+INSERT INTO product VALUES (5,9,'호두','캘리포니아 햇 호두 (A급) 1kg /2019년산 무료배송',100);
+INSERT INTO product VALUES (6,16,'샤프','자바 0.5mm 칼라 제도샤프',150);
+INSERT INTO product VALUES (7,16,'연필깎이','[티티] 하이샤파 연필깎이 KI-200 기차모양 레트로감성',150);
+INSERT INTO product VALUES (8,18,'LG 노트북','[LG전자] LG i5 I7 외 풀스펙 SSD빠른게이밍 사무노트북',200);
+INSERT INTO product VALUES (9,18,'LG 그램 노트북','LG 그램17 17Z90N-VA76K 222만구매 인텔i7 고사양 노트북',170);
+INSERT INTO product VALUES (10,22,'삼성전자 김치냉장고','삼성전자 김치플러스 상품명 뚜껑형김치냉장고 RP22N3111S9 221L 인증점 으뜸효율',150);
+INSERT INTO product VALUES (11,22,'삼성 냉장고','[삼성전자] 삼성냉장고 160리터 소형/미니/원룸/사업자전용',120);
+INSERT INTO product VALUES (12,25,'케이투 자전거','상품명2019 K2BIKE MTB자전거 KMT26GS 26인치 21단',140);
+````
 
 ## 결제모듈
 [아임포트](https://www.iamport.kr/)

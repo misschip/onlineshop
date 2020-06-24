@@ -86,7 +86,7 @@ public class ManagerRepository {
 	
 	
 	public List<Manager> findAll() {
-		final String SQL = "SELECT  FROM manager";
+		final String SQL = "SELECT id,username,phone,email FROM manager";
 		List<Manager> managers = new ArrayList<>();
 		
 		try {
@@ -99,7 +99,9 @@ public class ManagerRepository {
 			while(rs.next()) {
 				Manager manager = Manager.builder()
 						.id(rs.getInt("id"))
-						
+						.username(rs.getString("username"))
+						.phone(rs.getString("phone"))
+						.email(rs.getString("email"))
 						.build();
 				
 				managers.add(manager);

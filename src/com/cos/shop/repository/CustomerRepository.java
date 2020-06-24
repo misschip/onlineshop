@@ -86,7 +86,7 @@ public class CustomerRepository {
 	
 	
 	public List<Customer> findAll() {
-		final String SQL = "SELECT  FROM customer";
+		final String SQL = "SELECT id,username,password,phone,email,address,registerDate FROM customer";
 		List<Customer> customers = new ArrayList<>();
 		
 		try {
@@ -99,12 +99,16 @@ public class CustomerRepository {
 			while(rs.next()) {
 				Customer customer = Customer.builder()
 						.id(rs.getInt("id"))
-						
+						.username(rs.getString("username"))
+						.phone(rs.getString("phone"))
+						.email(rs.getString("email"))
+						.address(rs.getString("address"))
+						.registerDate(rs.getString("registerDate"))
 						.build();
 				
 				customers.add(customer);
 			}
-			
+			System.out.println("CustomerRepository.findAll : customers.size() :" + customers.size());
 			return customers;
 		} catch (Exception e) {
 			e.printStackTrace();

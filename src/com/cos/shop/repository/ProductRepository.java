@@ -6,8 +6,9 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-
 import com.cos.shop.db.DBConn;
+import com.cos.shop.dto.ProductResponseDto;
+import com.cos.shop.model.Category;
 import com.cos.shop.model.Product;
 
 
@@ -96,7 +97,7 @@ public class ProductRepository {
 	}
 
 	
-	
+/*
 	public List<Product> findAll() {
 		final String SQL = "SELECT id,category_id,name,description,price FROM product";
 		List<Product> products = new ArrayList<>();
@@ -129,5 +130,53 @@ public class ProductRepository {
 		}
 		return null;
 	}
+*/
+	
+	public List<ProductResponseDto> findAll() {
+		final String SQL = "SELECT product.id,category_id,name,description,price,root_category,sub_category "
+						+ " FROM product "
+						+ " INNER JOIN category "
+						+ " ON product.category_id = category.id ";
+		List<ProductResponseDto> productDtos = new ArrayList<>();
+		
+		try {
+			conn = DBConn.getConnection();
+			pstmt = conn.prepareStatement(SQL);
+			// 물음표 완성하기
+			
+			rs = pstmt.executeQuery();
+			// while 돌려서 리스트에 넣기
+			while(rs.next()) {
+				Product product = Product.builder()
+						.id(rs.getInt("id"))
+						.category_id(rs.getInt("category_id"))
+						.name(rs.getString("name"))
+						.description(rs.getString("description"))
+						.price(rs.getInt("price"))
+						.build();
+				
+				Category category = Category.builder()
+						.root_category(rs.getString("root_category"))
+						.sub_category(rs.getString("sub_category"))
+						.build();
+				
+				ProductResponseDto productDto = new ProductResponseDto();
+				productDto.setProduct(product);
+				productDto.setCategory(category);
+				
+				productDtos.add(productDto);
+				
+			}
+			
+			return productDtos;
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println(TAG + "findAll : " + e.getMessage());
+		} finally {
+			DBConn.close(conn, pstmt, rs);
+		}
+		return null;
+	}
+
 
 }
