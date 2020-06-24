@@ -3,8 +3,10 @@ package com.cos.shop.controller;
 import javax.servlet.annotation.WebServlet;
 
 import com.cos.shop.action.Action;
+import com.cos.shop.action.admin.ListCategoryAction;
 import com.cos.shop.action.admin.ListCustomerAction;
 import com.cos.shop.action.admin.ListManagerAction;
+import com.cos.shop.action.admin.ListOrdersAction;
 import com.cos.shop.action.admin.ListProductAction;
 
 @WebServlet("/admin/adm")
@@ -20,7 +22,11 @@ public class AdminController extends AbstractController {
 			return new ListManagerAction();
 		} else if (cmd.equals("listProduct")) {
 			return new ListProductAction();
-		} // else if (cmd.equals("listProduct"))
+		} else if (cmd.equals("listCategory")) {
+			return new ListCategoryAction();
+		} else if (cmd.equals("listOrders")) {
+			return new ListOrdersAction();
+		}
 		
 		return null;
 	}

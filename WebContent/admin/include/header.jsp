@@ -19,7 +19,12 @@
 		<div align="center">
 			<img src="/onlineshop/images/companyLogo.png" class="img-thumbnail" alt="Cinque Terre">
 		</div>
-		<h5 align="center">${admin.username}(${admin.email}) 계정으로 접속하였습니다. &nbsp;&nbsp;&nbsp;&nbsp;
+		
+		<div align="center">
+			<hr width="60%" />
+		</div>
+		
+		<h5 align="center">${admin.username}(${admin.email})님 환영합니다. &nbsp;&nbsp;&nbsp;&nbsp;
 			<span class="badge badge-pill badge-danger">
 				<a href="">로그아웃</a>
 			</span>
@@ -36,10 +41,10 @@
 				<a href="/onlineshop/admin/adm?cmd=listProduct">상품관리</a>
 			</span>
 			<span class="badge badge-pill badge-warning">
-				<a href="">카테고리관리</a>
+				<a href="/onlineshop/admin/adm?cmd=listCategory">카테고리관리</a>
 			</span>
 			<span class="badge badge-pill badge-warning">
-				<a href="">주문관리</a>
+				<a href="/onlineshop/admin/adm?cmd=listOrders">주문관리</a>
 			</span>
 			<span class="badge badge-pill badge-warning">
 				<a href="">리뷰관리</a>
