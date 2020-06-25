@@ -1,5 +1,7 @@
 package com.cos.shop.model;
 
+import java.sql.Timestamp;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -16,5 +18,5 @@ public class Review {
 	private double rating;
 	private String title;
 	private String commentary;
-	private String write_time;
+	private Timestamp write_time;
 }

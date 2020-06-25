@@ -2,6 +2,8 @@ package com.cos.shop.model;
 
 
 
+import java.sql.Timestamp;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -18,5 +20,5 @@ public class Customer {
 	private String phone;
 	private String email;
 	private String address;
-	private String registerDate;
+	private Timestamp registerDate;
 }

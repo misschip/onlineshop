@@ -103,7 +103,7 @@ public class CustomerRepository {
 						.phone(rs.getString("phone"))
 						.email(rs.getString("email"))
 						.address(rs.getString("address"))
-						.registerDate(rs.getString("registerDate"))
+						.registerDate(rs.getTimestamp("registerDate"))
 						.build();
 				
 				customers.add(customer);

@@ -1,6 +1,8 @@
 package com.cos.shop.model;
 
 
+import java.sql.Timestamp;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -13,7 +15,7 @@ import lombok.NoArgsConstructor;
 public class Orders {
 	private int id;
 	private int customer_id;
-	private String orders_date;
+	private Timestamp orders_date;
 	private String shipping_address;
 	private String recipient_name;
 	private String recipient_phone;

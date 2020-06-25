@@ -6,8 +6,9 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+
 import com.cos.shop.db.DBConn;
-import com.cos.shop.model.Category;
+
 import com.cos.shop.model.Manager;
 
 
@@ -24,6 +25,39 @@ public class ManagerRepository {
 	private PreparedStatement pstmt = null;
 	private ResultSet rs = null;
 	
+	
+	public Manager findByUsernameAndPassword(String username, String password) {
+		final String SQL = "SELECT id,username,phone,email FROM manager WHERE username = ? and password = ?";
+		
+		try {
+			conn = DBConn.getConnection();
+			pstmt = conn.prepareStatement(SQL);
+			// 물음표 완성하기
+			pstmt.setString(1, username);
+			pstmt.setString(2, password);
+			
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				Manager manager = Manager.builder()
+						.id(rs.getInt("id"))
+						.username(rs.getString("username"))
+						.phone(rs.getString("phone"))
+						.email(rs.getString("email"))
+						.build();
+				
+				return manager;
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println(TAG + "findByUsernameAndPassword : " + e.getMessage());
+		} finally {
+			DBConn.close(conn, pstmt, rs);
+		}
+		return null;
+	}
+
 	
 	public int save(Manager manager) {
 		final String SQL = "";

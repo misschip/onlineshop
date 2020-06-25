@@ -7,7 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.cos.shop.db.DBConn;
-import com.cos.shop.model.Manager;
+import com.cos.shop.dto.OrdersResponseDto;
+import com.cos.shop.model.Customer;
 import com.cos.shop.model.Orders;
 
 
@@ -86,7 +87,8 @@ public class OrdersRepository {
 	
 	
 	public List<Orders> findAll() {
-		final String SQL = "SELECT  FROM orders";
+		final String SQL = "SELECT id,customer_id,orders_date,shipping_address,recipient_name,recipient_phone,payment,total,status "
+								+ " FROM orders";
 		List<Orders> orders = new ArrayList<>();
 		
 		try {
@@ -99,7 +101,13 @@ public class OrdersRepository {
 			while(rs.next()) {
 				Orders order = Orders.builder()
 						.id(rs.getInt("id"))
-						
+						.orders_date(rs.getTimestamp("orders_date"))
+						.shipping_address(rs.getString("shipping_address"))
+						.recipient_name(rs.getString("recipient_name"))
+						.recipient_phone(rs.getString("recipient_phone"))
+						.payment(rs.getString("payment"))
+						.total(rs.getInt("total"))
+						.status(rs.getString("status"))
 						.build();
 				
 				orders.add(order);
@@ -116,3 +124,22 @@ public class OrdersRepository {
 	}
 
 }
+
+
+/*
+
+Orders, Customer, Item, Product 4개 테이블 JOIN
+final String SQL = "SELECT "
+							+ "o.id as oid,orders_date,shipping_address,recipient_name,recipient_phone,payment,total,status, " // Orders 필드들
+							+ "c.id as cid,username,"										// Customer 필드들
+							+ "i.id as iid,quantity,unit_price, "							// Item 필드들
+							+ "p.name,p.description"										// Product 필드들
+								+ "FROM orders o "							// 아래는 각 테이블 INNER JOIN
+								+ "INNER JOIN item i "
+										+ "ON o.id = i.orders_id "
+								+ "INNER JOIN product p "
+										+ "ON i.product_id = p.id "
+								+ "INNER JOIN customer c "
+										+ "ON o.customer_id = c.id";
+
+*/

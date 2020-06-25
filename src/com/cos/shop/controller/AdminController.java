@@ -8,6 +8,8 @@ import com.cos.shop.action.admin.ListCustomerAction;
 import com.cos.shop.action.admin.ListManagerAction;
 import com.cos.shop.action.admin.ListOrdersAction;
 import com.cos.shop.action.admin.ListProductAction;
+import com.cos.shop.action.admin.LoginProcAction;
+import com.cos.shop.action.admin.LogoutProcAction;
 
 @WebServlet("/admin/adm")
 public class AdminController extends AbstractController {
@@ -26,6 +28,10 @@ public class AdminController extends AbstractController {
 			return new ListCategoryAction();
 		} else if (cmd.equals("listOrders")) {
 			return new ListOrdersAction();
+		} else if (cmd.equals("loginProc")) {
+			return new LoginProcAction();
+		} else if (cmd.equals("logoutProc")) {
+			return new LogoutProcAction();
 		}
 		
 		return null;

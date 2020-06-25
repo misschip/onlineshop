@@ -24,9 +24,9 @@
 			<hr width="60%" />
 		</div>
 		
-		<h5 align="center">${admin.username}(${admin.email})님 환영합니다. &nbsp;&nbsp;&nbsp;&nbsp;
+		<h5 align="center">${manager.username}(${manager.email})님 환영합니다. &nbsp;&nbsp;&nbsp;&nbsp;
 			<span class="badge badge-pill badge-danger">
-				<a href="">로그아웃</a>
+				<a href="/onlineshop/admin/adm?cmd=logoutProc">로그아웃</a>
 			</span>
 		</h5>
 		<br>

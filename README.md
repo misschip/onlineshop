@@ -101,7 +101,7 @@ CREATE TABLE item (
     product_id NUMBER NOT NULL,
     quantity NUMBER NOT NULL,
     unit_price NUMBER NOT NULL,
-    total NUMBER,
+--    total NUMBER,				-- 이 필드 삭제
     CONSTRAINT FK_ORDERS_ITEM
         FOREIGN KEY(orders_id)
         REFERENCES orders(id)
@@ -206,16 +206,16 @@ INSERT INTO product VALUES (12,25,'케이투 자전거','상품명2019 K2BIKE MT
 
 ````sql
 INSERT INTO orders VALUES (1,6,TIMESTAMP '2020-04-15 10:05:00','부산시 진구','kim','010-5555-1111','신용카드',200,'배송완료');
-INSERT INTO item VALUES (1,1,8,1,200,200);
+INSERT INTO item VALUES (1,1,8,1,200);
 INSERT INTO orders VALUES (2,1,TIMESTAMP '2020-05-01 14:23:00','부산시 중구','ssar','010-1111-2222','신용카드',450,'배송완료');
-INSERT INTO item VALUES (2,2,6,2,150,300);
-INSERT INTO item VALUES (3,2,7,1,150,150);
+INSERT INTO item VALUES (2,2,6,2,150);
+INSERT INTO item VALUES (3,2,7,1,150);
 INSERT INTO orders VALUES (3,5,TIMESTAMP '2020-05-06 19:45:00','경기도 양평','장보고','010-7777-7777','계좌이체',300,'배송완료');
-INSERT INTO item VALUES (4,3,2,2,150,300);
+INSERT INTO item VALUES (4,3,2,2,150);
 INSERT INTO orders VALUES (4,9,TIMESTAMP '2020-05-21 16:31:00','경상남도','park','010-1111-8888','휴대폰결제',380,'배송완료');
-INSERT INTO item VALUES (5,4,2,1,150,150);
-INSERT INTO item VALUES (6,4,3,1,110,110);
-INSERT INTO item VALUES (7,4,4,1,120,120);
+INSERT INTO item VALUES (5,4,2,1,150);
+INSERT INTO item VALUES (6,4,3,1,110);
+INSERT INTO item VALUES (7,4,4,1,120);
 ````
 
 ## 결제모듈
