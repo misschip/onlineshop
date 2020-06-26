@@ -5,17 +5,22 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>    
 
+<%-- 상품등록시 대분류, 소분류 카테고리는 DB로부터 읽어온 값을 동적으로 뿌린다 --%>
 
 <%
+	// Map<대분류,Map<소분류,카테고리id>>
 	Map<String,Map<String,Integer>> menus = MenuUtil.prepareMenuMap();
 	Gson gson = new Gson();
 	String menusJson = gson.toJson(menus);
 	request.setAttribute("menusJson",menusJson);
+	request.setAttribute("menus",menus);
 %>
 
 <script>
-	console.log(${menusJson});
+	// console.log(${menusJson});
 </script>
+
+
 
 <%@ include file="./include/header.jsp" %>
 
@@ -31,40 +36,30 @@
 
 
 
-		<form>
+		<form method="post" action="/onlineshop/admin/adm?cmd=registerProduct">
 		
+		<%-- 대분류 메뉴 세팅을 <select> 태그에 onload="setSelectOption() 정도의 javascript를 걸어둬서 설정하는 것도 가능하겠지만
+			여기서는 일단 서버에서 EL언어로 완료 후에 보내오는 걸로 --%>
 		<div class="input-group mb-3">
-		  <select name="rootCategory" class="custom-select">
+		  <select name="rootCategory" class="custom-select" id="select_root_cate" onchange="setSubCategory()">
 		    <option selected>대분류</option>
-		    <option value="volvo">식품/생필품</option>
-		    <option value="fiat">의류/잡화</option>
-		    <option value="audi">생활용품</option>
+		    <c:forEach var="rootCate" items="${menus}">
+		    	<option value="${rootCate.key}">${rootCate.key}</option>
+		    </c:forEach>
 		  </select>
 		</div>
 
+		<%-- 소분류는 대분류의 선택에 따라 동적으로 바뀌도록 함 --%>
 		<div class="input-group mb-3">
-		  <select name="subCategory" class="custom-select">
-		    <option selected>소분류</option>
-		    <option value="volvo">반찬</option>
-		    <option value="fiat">과일</option>
-		    <option value="audi">견과류</option>
+		  <select name="subCategory" class="custom-select" id="select_sub_cate">
+			<option selected>소분류</option>		    
+<%--	 	<option value="1">반찬</option>	소분류의 value 값은 Category 테이블의 primary key값과 일치
+		    <option value="2">과일</option>
+		    <option value="3">견과류</option>
+--%>
 		  </select>
 		 </div>
-		  		
-	<%-- 	
-			<div class="input-group mb-3">
-				<div class="input-group-prepend">
-					<span class="input-group-text">대분류</span>
-				</div>
-				<input type="text" class="form-control">
-				&nbsp;&nbsp;&nbsp;
-				<div class="input-group-prepend">
-					<span class="input-group-text">소분류</span>
-				</div>
-				<input type="text" class="form-control">
-			</div>		
-		
-	--%>
+
 		
 			<div class="input-group mb-3">
 				<div class="input-group-prepend">
@@ -94,6 +89,8 @@
   				<textarea class="form-control" rows="5" id="comment"></textarea>
 			</div>
 			
+			<button type="submit" class="btn btn-secondary">등록</button>
+			
 		</form>
 
 
@@ -104,5 +101,36 @@
 </div>
 </div>
 
+
+
+<script>
+function setSubCategory() {
+	var menusJson = ${menusJson};
+	var rootVal = $("#select_root_cate").val();
+	// console.log(rootVal);
+
+	for (var key in menusJson) {
+		
+
+		if (key == rootVal) {
+			var subJson = menusJson[key];
+			var tagStr = "";
+			$("#select_sub_cate").empty();
+			
+			for (var subKey in subJson) {
+				tagStr = tagStr + "<option value='" + subJson[subKey] + "'>" + subKey + "</option>\n";
+
+				console.log(subKey + " : " + subJson[subKey]);
+			}
+
+			$("#select_sub_cate").append("<option selected>소분류</option>");
+			$("#select_sub_cate").append(tagStr);
+		}
+	}
+	
+}
+
+
+</script>
 
 <%@ include file="../include/footer.jsp" %>
