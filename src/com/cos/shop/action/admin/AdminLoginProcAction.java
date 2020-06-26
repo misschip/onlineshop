@@ -12,7 +12,7 @@ import com.cos.shop.model.Manager;
 import com.cos.shop.repository.ManagerRepository;
 import com.cos.shop.util.Script;
 
-public class LoginProcAction implements Action {
+public class AdminLoginProcAction implements Action {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

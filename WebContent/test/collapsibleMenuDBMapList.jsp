@@ -1,10 +1,26 @@
+<%@page import="com.cos.shop.util.MenuUtil"%>
+<%@page import="com.cos.shop.model.Category"%>
+<%@page import="com.cos.shop.repository.CategoryRepository"%>
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.*" %>
 
 <%
-	Map<String,List<String>> menuMap = new HashMap<>();
+	
 
+	
+	// List<Category> allCategories = MenuUtil.getAllCategories();
+	
+	// List<String> rootMenus = MenuUtil.getRootMenus();
+	
+	Map<String,Map<String,Integer>> menuMap = MenuUtil.prepareMenuMap();
+	
+	
+	
+	/*
+	Map<String,List<String>> menuMap = new HashMap<>();
+	
 	List<String> menuList1 = Arrays.asList(new String[]{"가구","문구"});
 	List<String> menuList2 = Arrays.asList(new String[]{"여성의류","남성의류","아동복"});
 	List<String> menuList3 = Arrays.asList(new String[]{"과일","통조림"});
@@ -14,6 +30,7 @@
 	menuMap.put("의류", menuList2);
 	menuMap.put("식품/농산물", menuList3);
 	menuMap.put("컴퓨터", menuList4);
+	*/
 	
 	request.setAttribute("menus",menuMap);
 	
@@ -44,8 +61,8 @@
       			<ul class="list-group">
       				<c:forEach var="subMenu" items="${entry.value}">
 	      				<li class="list-group-item d-flex justify-content-between align-items-center">
-	      				<a href="#">${subMenu}</a>
-	      				<span class="badge badge-primary badge-pill">3</span>
+	      				<a href="/onlineshop/board?cmd=listProd&cate=${subMenu.value}">${subMenu.key}</a>
+	      				<span class="badge badge-primary badge-pill">3</span> <%-- 해당 카테고리 내의 상품 건수 표출하는 이 부분은 구현해야 --%>
 	      				</li>
       				</c:forEach>
       			</ul>

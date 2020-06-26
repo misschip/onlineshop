@@ -10,7 +10,7 @@ import javax.servlet.http.HttpSession;
 import com.cos.shop.action.Action;
 import com.cos.shop.util.Script;
 
-public class LogoutProcAction implements Action {
+public class AdminLogoutProcAction implements Action {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

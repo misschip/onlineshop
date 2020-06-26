@@ -9,19 +9,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.cos.shop.action.Action;
-import com.cos.shop.model.Category;
-import com.cos.shop.repository.CategoryRepository;
+import com.cos.shop.model.Orders;
+import com.cos.shop.repository.OrdersRepository;
 
-public class ListCategoryAction implements Action {
+public class AdminOrdersAction implements Action {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		CategoryRepository categoryRepository = CategoryRepository.getInstance();
-		List<Category> categories = categoryRepository.findAll();
+		OrdersRepository ordersRepository = OrdersRepository.getInstance();
+		List<Orders> orders = ordersRepository.findAll();
 
-		request.setAttribute("categories", categories);
+		request.setAttribute("orders", orders);
 		
-		RequestDispatcher dis = request.getRequestDispatcher("category.jsp");
+		RequestDispatcher dis = request.getRequestDispatcher("orders.jsp");
 		dis.forward(request, response);
 
 	}

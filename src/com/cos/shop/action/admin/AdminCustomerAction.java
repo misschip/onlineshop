@@ -9,21 +9,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.cos.shop.action.Action;
-import com.cos.shop.model.Manager;
-import com.cos.shop.repository.ManagerRepository;
+import com.cos.shop.model.Customer;
+import com.cos.shop.repository.CustomerRepository;
 
-public class ListManagerAction implements Action {
+public class AdminCustomerAction implements Action {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ManagerRepository managerRepository = ManagerRepository.getInstance();
-		List<Manager> managers = managerRepository.findAll();
+		CustomerRepository customerRepository = CustomerRepository.getInstance();
+		List<Customer> customers = customerRepository.findAll();
 
-		request.setAttribute("managers", managers);
+		request.setAttribute("customers", customers);
 		
-		RequestDispatcher dis = request.getRequestDispatcher("manager.jsp");
+		RequestDispatcher dis = request.getRequestDispatcher("customer.jsp");
 		dis.forward(request, response);
-
 	}
 
 }

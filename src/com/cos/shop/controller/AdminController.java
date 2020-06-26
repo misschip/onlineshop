@@ -3,13 +3,13 @@ package com.cos.shop.controller;
 import javax.servlet.annotation.WebServlet;
 
 import com.cos.shop.action.Action;
-import com.cos.shop.action.admin.ListCategoryAction;
-import com.cos.shop.action.admin.ListCustomerAction;
-import com.cos.shop.action.admin.ListManagerAction;
-import com.cos.shop.action.admin.ListOrdersAction;
-import com.cos.shop.action.admin.ListProductAction;
-import com.cos.shop.action.admin.LoginProcAction;
-import com.cos.shop.action.admin.LogoutProcAction;
+import com.cos.shop.action.admin.AdminCategoryAction;
+import com.cos.shop.action.admin.AdminCustomerAction;
+import com.cos.shop.action.admin.AdminManagerAction;
+import com.cos.shop.action.admin.AdminOrdersAction;
+import com.cos.shop.action.admin.AdminProductAction;
+import com.cos.shop.action.admin.AdminLoginProcAction;
+import com.cos.shop.action.admin.AdminLogoutProcAction;
 
 @WebServlet("/admin/adm")
 public class AdminController extends AbstractController {
@@ -19,19 +19,19 @@ public class AdminController extends AbstractController {
 		System.out.println("AdminController : router() : cmd :" + cmd);
 		
 		if (cmd.equals("listCustomer")) {
-			return new ListCustomerAction();
+			return new AdminCustomerAction();
 		} else if (cmd.equals("listManager")) {
-			return new ListManagerAction();
+			return new AdminManagerAction();
 		} else if (cmd.equals("listProduct")) {
-			return new ListProductAction();
+			return new AdminProductAction();
 		} else if (cmd.equals("listCategory")) {
-			return new ListCategoryAction();
+			return new AdminCategoryAction();
 		} else if (cmd.equals("listOrders")) {
-			return new ListOrdersAction();
+			return new AdminOrdersAction();
 		} else if (cmd.equals("loginProc")) {
-			return new LoginProcAction();
+			return new AdminLoginProcAction();
 		} else if (cmd.equals("logoutProc")) {
-			return new LogoutProcAction();
+			return new AdminLogoutProcAction();
 		}
 		
 		return null;
