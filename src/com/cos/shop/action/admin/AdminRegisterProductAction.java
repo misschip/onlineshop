@@ -1,8 +1,6 @@
 package com.cos.shop.action.admin;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -10,8 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.cos.shop.action.Action;
 import com.cos.shop.model.Product;
-import com.cos.shop.model.ProductImage;
-import com.cos.shop.service.ProductService;
+import com.cos.shop.repository.ProductRepository;
 import com.cos.shop.util.Script;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
@@ -31,9 +28,18 @@ public class AdminRegisterProductAction implements Action {
 		String price = "";
 		// String quantity = "";
 		String description = "";
+		
 		String filename1 = "";
 		String origfilename1 = "";
 		String filepath1 = "";
+		
+		String filename2 = "";
+		String origfilename2 = "";
+		String filepath2 = "";
+		
+		String filename3 = "";
+		String origfilename3 = "";
+		String filepath3 = "";
 		
 		try {
 			MultipartRequest multi = new MultipartRequest(request,
@@ -47,27 +53,32 @@ public class AdminRegisterProductAction implements Action {
 			price = multi.getParameter("price");
 			// quantity = multi.getParameter("quantity");
 			description = multi.getParameter("description");
+			
 			filename1 = multi.getFilesystemName("file1");
 			origfilename1 = multi.getOriginalFileName("file1");
+			filename2 = multi.getFilesystemName("file2");
+			origfilename2 = multi.getOriginalFileName("file2");
+			filename3 = multi.getFilesystemName("file3");
+			origfilename3 = multi.getOriginalFileName("file3");
 			
 			
 			filepath1 = uploadPath + "\\" + filename1;
+			filepath2 = uploadPath + "\\" + filename2;
+			filepath3 = uploadPath + "\\" + filename3;
 			
 			Product product = Product.builder()
 					.category_id(Integer.parseInt(category))
 					.name(name)
 					.price(Integer.parseInt(price))
 					.description(description)
+					.image1(filepath1)
+					.image2(filepath2)
+					.image3(filepath3)
 					.build();
 			
-			ProductImage productImage1 = new ProductImage();
-			productImage1.setAddr(filepath1);
 			
-			List<ProductImage> productImages = new ArrayList<>();
-			productImages.add(productImage1);
-			
-			ProductService productService = ProductService.getInstance();
-			int result = productService.registerNewProduct(product, productImages);
+			ProductRepository productRepository = ProductRepository.getInstance();
+			int result = productRepository.save(product);
 			
 			System.out.println("상품등록 결과 : result :" + result);
 			

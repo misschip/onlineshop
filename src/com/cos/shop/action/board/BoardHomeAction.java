@@ -1,4 +1,4 @@
-package com.cos.shop.action.admin;
+package com.cos.shop.action.board;
 
 import java.io.IOException;
 import java.util.List;
@@ -9,22 +9,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.cos.shop.action.Action;
-import com.cos.shop.dto.ProductResponseDto;
 import com.cos.shop.model.Product;
 import com.cos.shop.repository.ProductRepository;
 
-public class AdminProductAction implements Action {
+public class BoardHomeAction implements Action {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ProductRepository productRepository = ProductRepository.getInstance();
-		List<ProductResponseDto> productDtos = productRepository.findAllWithCategory();
+		List<Product> products = productRepository.findAll();
 
-		request.setAttribute("productDtos", productDtos);
+		request.setAttribute("products", products);
 		
-		RequestDispatcher dis = request.getRequestDispatcher("product.jsp");
+		RequestDispatcher dis = request.getRequestDispatcher("home.jsp");
 		dis.forward(request, response);
-
 	}
 
 }

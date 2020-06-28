@@ -6,4 +6,10 @@
 
 <%@ include file="include/menu.jsp" %>
 
+
+
+<%@ include file="include/article.jsp" %>
+
+
+
 <%@ include file="include/footer.jsp" %>

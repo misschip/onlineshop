@@ -29,8 +29,8 @@
 					<td>${productDto.product.name}</td>
 					<td>${productDto.product.description}</td>
 					<td>${productDto.product.price}</td>
-					<td><button type="button" class="btn btn-primary">수정</button>
-						<button type="button" class="btn btn-primary">삭제</button>
+					<td><a href="/onlineshop/admin/adm?cmd=updateProduct&id=${productDto.product.id}" class="btn btn-primary">수정</a>
+						<a href="/onlineshop/admin/adm?cmd=deleteProduct&id=${productDto.product.id}" class="btn btn-primary">삭제</a>
 					</td>
 				</tr>
 			</c:forEach>

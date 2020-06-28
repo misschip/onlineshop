@@ -23,6 +23,8 @@ public class ProductService {
 	private ProductImageRepository productImageRepository = ProductImageRepository.getInstance();
 	
 	
+	// Product와 ProductImage 테이블을 따로 둘 때 필요했던 메서드임
+	// Product 테이블에 image 링크를 넣음으로써 필요없어진 메서드
 	public int registerNewProduct(Product product, List<ProductImage> productImages) {
 		Connection conn = null;
 		try {

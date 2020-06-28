@@ -35,12 +35,17 @@ CREATE TABLE product (
     name VARCHAR2(100) NOT NULL,
     description VARCHAR2(4000) NOT NULL,
     price NUMBER NOT NULL,
+    image1 VARCHAR2(260),			-- windows 10의 file path max limit = 260
+    image2 VARCHAR2(260),			-- productimage 테이블 따로 두는 대신 product 테이블로 넣음
+    image3 VARCHAR2(260),
     CONSTRAINT FK_PRODUCT_CATEGORY
         FOREIGN KEY(category_id)
         REFERENCES category(id)
         ON DELETE SET NULL
 );
 
+
+------- 이 테이블 삭제 예정
 CREATE TABLE productimage (
     id NUMBER PRIMARY KEY,
     product_id NUMBER NOT NULL,
@@ -50,6 +55,7 @@ CREATE TABLE productimage (
         REFERENCES product(id)
         ON DELETE CASCADE
 );
+------- 이 테이블 삭제 예정
 
 CREATE TABLE customer (
     id NUMBER PRIMARY KEY,
@@ -113,7 +119,7 @@ CREATE TABLE item (
 );
 ````
 
-## 시퀀스 생서
+## 시퀀스 생성
 ````sql
 CREATE SEQUENCE product_seq
     START WITH 1
@@ -168,7 +174,7 @@ INSERT INTO CATEGORY VALUES(13,'생활용품','가구');
 INSERT INTO CATEGORY VALUES(14,'생활용품','조명');
 INSERT INTO CATEGORY VALUES(15,'생활용품','주방');
 INSERT INTO CATEGORY VALUES(16,'생활용품','문구');
-INSERT INTO CATEGORY VALUES(17,'생활용품','가구');
+-- INSERT INTO CATEGORY VALUES(17,'생활용품','가구'); -- 13과 중복 삭제
 
 INSERT INTO CATEGORY VALUES(18,'컴퓨터/가전','노트북');
 INSERT INTO CATEGORY VALUES(19,'컴퓨터/가전','데스크톱');

@@ -54,8 +54,7 @@
 		  <select name="subCategory" class="custom-select" id="select_sub_cate">
 			<option selected>소분류</option>		    
 <%--	 	<option value="1">반찬</option>	소분류의 value 값은 Category 테이블의 primary key값과 일치
-		    <option value="2">과일</option>
-		    <option value="3">견과류</option>
+
 --%>
 		  </select>
 		 </div>

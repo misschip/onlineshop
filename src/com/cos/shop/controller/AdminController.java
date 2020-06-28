@@ -11,6 +11,8 @@ import com.cos.shop.action.admin.AdminManagerAction;
 import com.cos.shop.action.admin.AdminOrdersAction;
 import com.cos.shop.action.admin.AdminProductAction;
 import com.cos.shop.action.admin.AdminRegisterProductAction;
+import com.cos.shop.action.admin.AdminUpdateProductAction;
+import com.cos.shop.action.admin.AdminUpdateProductProcAction;
 
 @WebServlet("/admin/adm")
 public class AdminController extends AbstractController {
@@ -35,6 +37,10 @@ public class AdminController extends AbstractController {
 			return new AdminLogoutProcAction();
 		} else if (cmd.equals("registerProduct")) {
 			return new AdminRegisterProductAction();
+		} else if (cmd.equals("updateProduct")) {
+			return new AdminUpdateProductAction();
+		} else if (cmd.equals("updateProductProc")) {
+			return new AdminUpdateProductProcAction();
 		}
 		
 		return null;

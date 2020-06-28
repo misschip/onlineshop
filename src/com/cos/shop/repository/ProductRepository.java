@@ -10,6 +10,7 @@ import com.cos.shop.db.DBConn;
 import com.cos.shop.dto.ProductResponseDto;
 import com.cos.shop.model.Category;
 import com.cos.shop.model.Product;
+import com.cos.shop.model.ProductImage;
 
 
 public class ProductRepository {
@@ -26,6 +27,45 @@ public class ProductRepository {
 	private ResultSet rs = null;
 	
 	
+	
+	public Product findById(int id) {
+		final String SQL = "SELECT id,category_id,name,description,price,image1,image2,image3 FROM product "
+							+ "WHERE id = ?";
+		
+		try {
+			conn = DBConn.getConnection();
+			pstmt = conn.prepareStatement(SQL);
+			
+			rs = pstmt.executeQuery();
+			
+			if (rs.next()) {
+				Product product = Product.builder()
+						.id(rs.getInt("id"))
+						.category_id(rs.getInt("category_id"))
+						.name(rs.getString("name"))
+						.description(rs.getString("description"))
+						.price(rs.getInt("price"))
+						.image1(rs.getString("image1"))
+						.image2(rs.getString("image2"))
+						.image3(rs.getString("image3"))
+						.build();
+				
+				return product;
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println(TAG + "findById : " + e.getMessage());
+		} finally {
+			DBConn.close(conn, pstmt, rs);
+		}
+		
+		return null;		
+		
+	}
+	
+	
+		
 	public int save(Product product) {
 		final String SQL = "INSERT INTO product (id,category_id,name,description,price) VALUES (PRODUCT_SEQ.NEXTVAL,?,?,?,?)";
 		
@@ -58,7 +98,7 @@ public class ProductRepository {
 		final String SQL = "INSERT INTO product (id,category_id,name,description,price) VALUES (PRODUCT_SEQ.NEXTVAL,?,?,?,?)";
 		
 		try {
-			
+			// 이 메서드는 Connection 객체를 매개값으로 받아옴
 			pstmt = conn.prepareStatement(SQL);
 			
 			pstmt.setInt(1, product.getCategory_id());
@@ -83,7 +123,7 @@ public class ProductRepository {
 		final String SQL = "SELECT product_seq.currval FROM DUAL";
 		
 		try {
-			
+			// 이 메서드는 Connection 객체를 매개값으로 받아옴
 			pstmt = conn.prepareStatement(SQL);
 			
 			rs = pstmt.executeQuery();
@@ -151,9 +191,9 @@ public class ProductRepository {
 	}
 
 	
-/*
+
 	public List<Product> findAll() {
-		final String SQL = "SELECT id,category_id,name,description,price FROM product";
+		final String SQL = "SELECT id,category_id,name,description,price,image1,image2,image3 FROM product";
 		List<Product> products = new ArrayList<>();
 		
 		try {
@@ -170,6 +210,9 @@ public class ProductRepository {
 						.name(rs.getString("name"))
 						.description(rs.getString("description"))
 						.price(rs.getInt("price"))
+						.image1(rs.getString("image1"))
+						.image2(rs.getString("image2"))
+						.image3(rs.getString("image3"))
 						.build();
 				
 				products.add(product);
@@ -184,9 +227,12 @@ public class ProductRepository {
 		}
 		return null;
 	}
-*/
+
 	
-	public List<ProductResponseDto> findAll() {
+
+
+
+	public List<ProductResponseDto> findAllWithCategory() {
 		final String SQL = "SELECT product.id,category_id,name,description,price,root_category,sub_category "
 						+ " FROM product "
 						+ " INNER JOIN category "
@@ -232,4 +278,5 @@ public class ProductRepository {
 		return null;
 	}
 
+	
 }
