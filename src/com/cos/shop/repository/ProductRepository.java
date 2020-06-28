@@ -51,6 +51,60 @@ public class ProductRepository {
 		return -1;
 	}
 	
+	// 테이블에 Product와 ProductImage 넣는 작업을 하나의 Connection (세션)으로 처리하기 위해
+	// Connection을 매개값으로 받아서 쓰는 save()를 작성
+	// 이 메서드는 Connection을 닫으면 안된다!
+	public int save(Connection conn, Product product) {
+		final String SQL = "INSERT INTO product (id,category_id,name,description,price) VALUES (PRODUCT_SEQ.NEXTVAL,?,?,?,?)";
+		
+		try {
+			
+			pstmt = conn.prepareStatement(SQL);
+			
+			pstmt.setInt(1, product.getCategory_id());
+			pstmt.setString(2, product.getName());
+			pstmt.setString(3, product.getDescription());
+			pstmt.setInt(4, product.getPrice());
+			
+			int result = pstmt.executeUpdate();
+			return result;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println(TAG + "save : " + e.getMessage());
+		} finally {
+			// DBConn.close(conn, pstmt);
+		}
+		
+		return -1;
+	}
+	
+	public int getLastPid(Connection conn) {
+		final String SQL = "SELECT product_seq.currval FROM DUAL";
+		
+		try {
+			
+			pstmt = conn.prepareStatement(SQL);
+			
+			rs = pstmt.executeQuery();
+			
+			if (rs.next()) {
+				int pid = rs.getInt(1);
+				return pid;
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println(TAG + "getLastPid : " + e.getMessage());
+		} finally {
+			// DBConn.close(conn, pstmt);
+		}
+		
+		return -1;		
+		
+	}
+	
+	
 	
 	public int update(Product product) {
 		final String SQL = "UPDATE product SET category_id = ?, name = ?, description = ?, price = ? WHERE id = ?";
@@ -177,6 +231,5 @@ public class ProductRepository {
 		}
 		return null;
 	}
-
 
 }

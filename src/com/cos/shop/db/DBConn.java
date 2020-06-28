@@ -29,6 +29,16 @@ public class DBConn {
 	}
 	
 
+	
+	public static void close(Connection conn) {
+		try {
+			conn.close();
+		} catch (Exception e) {
+			System.out.println("DB종료시 오류가 발생 : "+e.getMessage());
+		}
+	}
+	
+	
 	public static void close(Connection conn, PreparedStatement pstmt) {
 		try {
 			conn.close();
@@ -45,6 +55,17 @@ public class DBConn {
 			rs.close();
 		} catch (Exception e) {
 			System.out.println("DB종료시 오류가 발생 : "+e.getMessage());
+		}
+	}
+	
+	
+	public static void rollback(Connection conn) {
+		if (conn != null) {
+			try {
+				conn.rollback();
+			} catch (Exception e) {
+				System.out.println("DB rollback 중 오류 발생 : "+e.getMessage());
+			}
 		}
 	}
 

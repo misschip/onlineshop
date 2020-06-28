@@ -44,7 +44,7 @@ CREATE TABLE product (
 CREATE TABLE productimage (
     id NUMBER PRIMARY KEY,
     product_id NUMBER NOT NULL,
-    addr VARCHAR2(100) NOT NULL,
+    addr VARCHAR2(260) NOT NULL,		-- windows 10의 file path max limit = 260
     CONSTRAINT FK_PRODUCTIMAGE_PRODUCT
         FOREIGN KEY(product_id)
         REFERENCES product(id)
@@ -112,6 +112,38 @@ CREATE TABLE item (
         ON DELETE SET NULL
 );
 ````
+
+## 시퀀스 생서
+````sql
+CREATE SEQUENCE product_seq
+    START WITH 1
+    INCREMENT BY 1;
+
+CREATE SEQUENCE category_seq
+    START WITH 1
+    INCREMENT BY 1;
+    
+CREATE SEQUENCE customer_seq
+    START WITH 1
+    INCREMENT BY 1;
+
+CREATE SEQUENCE item_seq
+    START WITH 1
+    INCREMENT BY 1;
+    
+CREATE SEQUENCE manager_seq
+    START WITH 1
+    INCREMENT BY 1;
+
+CREATE SEQUENCE orders_seq
+    START WITH 1
+    INCREMENT BY 1;
+    
+CREATE SEQUENCE review_seq
+    START WITH 1
+    INCREMENT BY 1;
+````
+
 
 ## 샘플 데이터 입력
 

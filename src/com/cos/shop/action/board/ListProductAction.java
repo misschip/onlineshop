@@ -16,7 +16,7 @@ public class ListProductAction implements Action {
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ProductRepository productRepository = ProductRepository.getInstance();
-		List<Product> products = productRepository.findAll();
+		// List<Product> products = productRepository.findAll();
 
 	}
 

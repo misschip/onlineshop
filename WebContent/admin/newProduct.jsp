@@ -36,7 +36,7 @@
 
 
 
-		<form method="post" action="/onlineshop/admin/adm?cmd=registerProduct">
+		<form method="post" action="/onlineshop/admin/adm?cmd=registerProduct" enctype="multipart/form-data">
 		
 		<%-- 대분류 메뉴 세팅을 <select> 태그에 onload="setSelectOption() 정도의 javascript를 걸어둬서 설정하는 것도 가능하겠지만
 			여기서는 일단 서버에서 EL언어로 완료 후에 보내오는 걸로 --%>
@@ -65,29 +65,36 @@
 				<div class="input-group-prepend">
 					<span class="input-group-text">상품명</span>
 				</div>
-				<input type="text" class="form-control">
+				<input type="text" class="form-control" name="prodName">
 			</div>
 
 			<div class="input-group mb-3">
 				<div class="input-group-prepend">
 					<span class="input-group-text">상품가격</span>
 				</div>
-				<input type="text" class="form-control">
+				<input type="text" class="form-control" name="price">
 			</div>
-
+<%--
 			<div class="input-group mb-3">
 				<div class="input-group-prepend">
 					<span class="input-group-text">상품수량</span>
 				</div>
-				<input type="text" class="form-control">
+				<input type="text" class="form-control" name="quantity">
 			</div>
-			
+ --%>			
 			
 			<%-- 상품설명 부분은 summernote 적용하고 그림파일 4개 정도는 cos 라이브러리로 올리는게 좋을 듯 --%>
 			<div class="form-group">
   				<label for="comment">상품설명</label>
-  				<textarea class="form-control" rows="5" id="comment"></textarea>
+  				<textarea class="form-control" rows="5" id="comment" name="description"></textarea>
 			</div>
+			
+			
+			<div class="form-group">
+				<label for="fileName1"> 첨부파일 </label>
+				<input type="file" name="file1" id="fileName1">
+			</div>
+			
 			
 			<button type="submit" class="btn btn-secondary">등록</button>
 			
