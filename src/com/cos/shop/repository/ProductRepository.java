@@ -36,6 +36,7 @@ public class ProductRepository {
 			conn = DBConn.getConnection();
 			pstmt = conn.prepareStatement(SQL);
 			
+			pstmt.setInt(1, id);
 			rs = pstmt.executeQuery();
 			
 			if (rs.next()) {
@@ -147,7 +148,8 @@ public class ProductRepository {
 	
 	
 	public int update(Product product) {
-		final String SQL = "UPDATE product SET category_id = ?, name = ?, description = ?, price = ? WHERE id = ?";
+		final String SQL = "UPDATE product SET category_id = ?, name = ?, description = ?, price = ?, "
+							+ " image1 = ?, image2 = ?, image3 = ? WHERE id = ?";
 		
 		try {
 			conn = DBConn.getConnection();
@@ -157,7 +159,10 @@ public class ProductRepository {
 			pstmt.setString(2, product.getName());
 			pstmt.setString(3, product.getDescription());
 			pstmt.setInt(4, product.getPrice());
-			pstmt.setInt(5, product.getId());
+			pstmt.setString(5, product.getImage1());
+			pstmt.setString(6, product.getImage1());
+			pstmt.setString(7, product.getImage1());
+			pstmt.setInt(8, product.getId());
 			
 			return pstmt.executeUpdate();
 		} catch (Exception e) {
@@ -204,6 +209,18 @@ public class ProductRepository {
 			rs = pstmt.executeQuery();
 			// while 돌려서 리스트에 넣기
 			while(rs.next()) {
+				
+				/*
+				String image1 = rs.getString("image1");
+				System.out.println(TAG + "findAll() : image1 :" + image1);
+				String image1updated = "";
+				if (image1 == null || image1.equals("")) {
+					image1updated = image1;
+				} else {
+					image1updated = image1.replace("\\","/");
+				}
+				System.out.println(TAG + "findAll() : image1updated :" + image1updated);
+				*/
 				Product product = Product.builder()
 						.id(rs.getInt("id"))
 						.category_id(rs.getInt("category_id"))
@@ -211,6 +228,7 @@ public class ProductRepository {
 						.description(rs.getString("description"))
 						.price(rs.getInt("price"))
 						.image1(rs.getString("image1"))
+						// .image1(image1updated)
 						.image2(rs.getString("image2"))
 						.image3(rs.getString("image3"))
 						.build();

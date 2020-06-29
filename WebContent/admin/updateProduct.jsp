@@ -8,12 +8,8 @@
 <%-- 상품등록시 대분류, 소분류 카테고리는 DB로부터 읽어온 값을 동적으로 뿌린다 --%>
 
 <%
-	// Map<대분류,Map<소분류,카테고리id>>
-	Map<String,Map<String,Integer>> menus = MenuUtil.prepareMenuMap();
-	Gson gson = new Gson();
-	String menusJson = gson.toJson(menus);
-	request.setAttribute("menusJson",menusJson);
-	request.setAttribute("menus",menus);
+	/* menus, menusJson 관련 코드는 AdminUpdateProductAction으로 이동
+	*/
 %>
 
 <script>
@@ -36,26 +32,42 @@
 
 
 
-		<form method="post" action="/onlineshop/admin/adm?cmd=registerProduct" enctype="multipart/form-data">
+		<form method="post" action="/onlineshop/admin/adm?cmd=updateProductProc" enctype="multipart/form-data">
 		
 		<%-- 대분류 메뉴 세팅을 <select> 태그에 onload="setSelectOption() 정도의 javascript를 걸어둬서 설정하는 것도 가능하겠지만
 			여기서는 일단 서버에서 EL언어로 완료 후에 보내오는 걸로 --%>
 		<div class="input-group mb-3">
 		  <select name="rootCategory" class="custom-select" id="select_root_cate" onchange="setSubCategory()">
-		    <option selected>대분류</option>
+		    <option>대분류</option>
 		    <c:forEach var="rootCate" items="${menus}">
-		    	<option value="${rootCate.key}">${rootCate.key}</option>
+		    	<c:choose>
+		    		<c:when test="${rootCate.key eq selectedCategory.root_category}">
+		    			<option selected value="${rootCate.key}">${rootCate.key}</option>
+		    		</c:when>
+		    		<c:otherwise>
+		    			<option value="${rootCate.key}">${rootCate.key}</option>
+		    		</c:otherwise>
+		    	</c:choose>
 		    </c:forEach>
 		  </select>
 		</div>
 
-		<%-- 소분류는 대분류의 선택에 따라 동적으로 바뀌도록 함 --%>
+		
 		<div class="input-group mb-3">
 		  <select name="subCategory" class="custom-select" id="select_sub_cate">
-			<option selected>소분류</option>		    
-<%--	 	<option value="1">반찬</option>	소분류의 value 값은 Category 테이블의 primary key값과 일치
+			<option selected>소분류</option>
+			<c:set var="subMap" value="${menus[selectedCategory.root_category]}" />
+			<c:forEach var="entry" items="${subMap}">
+				<c:choose>
+					<c:when test="${selectedCategory.id eq entry.value}">
+						<option selected value="${entry.value}">${entry.key}</option>
+					</c:when>
+					<c:otherwise>
+						<option value="${entry.value}">${entry.key}</option>
+					</c:otherwise>
+				</c:choose>
+			</c:forEach>		    
 
---%>
 		  </select>
 		 </div>
 
@@ -64,14 +76,15 @@
 				<div class="input-group-prepend">
 					<span class="input-group-text">상품명</span>
 				</div>
-				<input type="text" class="form-control" name="prodName">
+				<input type="text" class="form-control" name="prodName" value="${product.name}">
+				<input type="hidden" name="prodId" value="${product.id}">
 			</div>
 
 			<div class="input-group mb-3">
 				<div class="input-group-prepend">
 					<span class="input-group-text">상품가격</span>
 				</div>
-				<input type="text" class="form-control" name="price">
+				<input type="text" class="form-control" name="price" value="${product.price}">
 			</div>
 <%--
 			<div class="input-group mb-3">
@@ -85,23 +98,23 @@
 			<%-- 상품설명 부분은 summernote 적용하고 그림파일 4개 정도는 cos 라이브러리로 올리는게 좋을 듯 --%>
 			<div class="form-group">
   				<label for="comment">상품설명</label>
-  				<textarea class="form-control" rows="5" id="comment" name="description"></textarea>
+  				<textarea class="form-control" rows="5" id="comment" name="description">${product.description}</textarea>
 			</div>
 			
 			
 			<div class="form-group">
 				<label for="fileName1"> 첨부파일1 </label>
-				<input type="file" name="file1" id="fileName1">
+				<input type="file" name="file1" id="fileName1" value="${product.image1}">
 			</div>
 			
 			<div class="form-group">
 				<label for="fileName2"> 첨부파일2 </label>
-				<input type="file" name="file2" id="fileName2">
+				<input type="file" name="file2" id="fileName2" value="${product.image2}">
 			</div>
 			
 			<div class="form-group">
 				<label for="fileName3"> 첨부파일3 </label>
-				<input type="file" name="file3" id="fileName3">
+				<input type="file" name="file3" id="fileName3" value="${product.image3}">
 			</div>
 						
 			<button type="submit" class="btn btn-secondary">등록</button>

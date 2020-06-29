@@ -61,10 +61,14 @@ public class AdminRegisterProductAction implements Action {
 			filename3 = multi.getFilesystemName("file3");
 			origfilename3 = multi.getOriginalFileName("file3");
 			
-			
+/*			
 			filepath1 = uploadPath + "\\" + filename1;
 			filepath2 = uploadPath + "\\" + filename2;
 			filepath3 = uploadPath + "\\" + filename3;
+*/			
+			filepath1 = contextPath + "/prodImages/" + filename1;
+			filepath2 = contextPath + "/prodImages/" + filename2;
+			filepath3 = contextPath + "/prodImages/" + filename3;
 			
 			Product product = Product.builder()
 					.category_id(Integer.parseInt(category))
