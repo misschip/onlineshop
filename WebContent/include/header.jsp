@@ -21,18 +21,25 @@
 <nav class="navbar navbar-expand-sm bg-light navbar-light">
   <a class="navbar-brand" href="/onlineshop/index.jsp">Home</a>
   
-
+<%--
   <form class="form-inline" action="/action_page.php">
     <input class="form-control mr-sm-2" type="text" placeholder="Search">
     <button class="btn btn-success" type="submit">Search</button>
   </form>
-
+ --%>
   
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
     <span class="navbar-toggler-icon"></span>
   </button>
   <%-- 아래 justify-content-between (justify-content-end, justify-content-around) 등으로 메뉴 배치 바꿈 --%>
   <div class="justify-content-end collapse navbar-collapse" id="collapsibleNavbar">
+    
+    <%-- 아래 form과 ul은 collapsibleNavbar 내에 대등한 요소로 배치됨 --%>
+  	<form class="form-inline" action="/action_page.php">
+    	<input class="form-control mr-sm-2" type="text" placeholder="Search">
+    	<button class="btn btn-success" type="submit">Search</button>
+  	</form>
+
     
     <ul class="navbar-nav">
     

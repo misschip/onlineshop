@@ -160,8 +160,8 @@ public class ProductRepository {
 			pstmt.setString(3, product.getDescription());
 			pstmt.setInt(4, product.getPrice());
 			pstmt.setString(5, product.getImage1());
-			pstmt.setString(6, product.getImage1());
-			pstmt.setString(7, product.getImage1());
+			pstmt.setString(6, product.getImage2());
+			pstmt.setString(7, product.getImage3());
 			pstmt.setInt(8, product.getId());
 			
 			return pstmt.executeUpdate();

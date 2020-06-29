@@ -1,7 +1,6 @@
 package com.cos.shop.action.board;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,24 +10,28 @@ import javax.servlet.http.HttpServletResponse;
 import com.cos.shop.action.Action;
 import com.cos.shop.model.Product;
 import com.cos.shop.repository.ProductRepository;
-import com.cos.shop.util.TextParser;
 
-public class BoardHomeAction implements Action {
+public class BoardDetailAction implements Action {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ProductRepository productRepository = ProductRepository.getInstance();
-		List<Product> products = productRepository.findAll();
-
-		for (Product product : products) {
-			String preview = TextParser.getTextPreview(product.getDescription(), 50);
-			product.setDescription(preview);
+		String idStr = request.getParameter("id");
+		
+		if (idStr == null || idStr.equals("")) {
+			System.out.println("BoardDetailAction : idStr이 null 또는 빈 문자열임 :" + idStr);
+			return;
 		}
 		
-		request.setAttribute("products", products);
+		int id = Integer.parseInt(idStr);
 		
-		RequestDispatcher dis = request.getRequestDispatcher("home.jsp");
+		ProductRepository productRepository = ProductRepository.getInstance();
+		Product product = productRepository.findById(id);
+		
+		request.setAttribute("product", product);
+		
+		RequestDispatcher dis = request.getRequestDispatcher("detail.jsp");
 		dis.forward(request, response);
+
 	}
 
 }
