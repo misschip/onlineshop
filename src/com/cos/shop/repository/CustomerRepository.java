@@ -25,6 +25,46 @@ public class CustomerRepository {
 	private ResultSet rs = null;
 	
 	
+	
+	public Customer findByUsernameAndPassword(String username, String password) {
+		final String SQL = "SELECT id,username,password,phone,email,address,registerdate FROM customer "
+							+ " WHERE username = ? AND password = ?";
+		
+		Customer customer = null;
+		
+		try {
+			conn = DBConn.getConnection();
+			pstmt = conn.prepareStatement(SQL);
+			
+			pstmt.setString(1, username);
+			pstmt.setString(2, password);
+			
+			rs = pstmt.executeQuery();
+			
+			if (rs.next()) {
+				customer = Customer.builder()
+						.id(rs.getInt("id"))
+						.username(rs.getString("username"))
+						.phone(rs.getString("phone"))
+						.email(rs.getString("email"))
+						.address(rs.getString("address"))
+						.registerDate(rs.getTimestamp("registerdate"))
+						.build();
+								
+				return customer;
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println(TAG + "findByUsernameAndPassword : " + e.getMessage());
+		} finally {
+			DBConn.close(conn, pstmt, rs);
+		}
+		
+		return null;
+	}
+	
+	
 	public int save(Customer customer) {
 		final String SQL = "";
 		

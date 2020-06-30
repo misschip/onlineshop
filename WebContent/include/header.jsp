@@ -46,37 +46,36 @@
     <c:choose>
     	<c:when test="${empty sessionScope.principal}">
 	      <li class="nav-item">
-	        <a class="nav-link" href="/onlineshop/user?cmd=login">로그인</a>
+	        <a class="nav-link" href="/onlineshop/customer?cmd=login">로그인</a>
 	      </li>
 	      <li class="nav-item">
-	        <a class="nav-link" href="/onlineshop/user?cmd=join">회원가입</a>
+	        <a class="nav-link" href="/onlineshop/customer?cmd=join">회원가입</a>
 	      </li>
 	    </c:when>
 
       	<c:otherwise>
       		<li class="nav-item">
-	        <a class="nav-link" href="/onlineshop/board?cmd=write">글쓰기</a>
+	        <a class="nav-link" href="/onlineshop/product?cmd=write">글쓰기</a>
 	      	</li>
       		<li class="nav-item">
-	        <a class="nav-link" href="/onlineshop/user?cmd=update">회원정보</a>
+	        <a class="nav-link" href="/onlineshop/customer?cmd=update">회원정보</a>
 	      	</li>
 	      	<li class="nav-item">
-	        <a class="nav-link" href="/onlineshop/user?cmd=logout">로그아웃</a>
+	        <a class="nav-link" href="/onlineshop/customer?cmd=logout">로그아웃</a>
       		</li>
 
+			<%--
+			<li class="nav-item">
+    		<a href="/onlineshop/user?cmd=profileUpload">
+    		<img style="border-radius:20px" onerror="this.src='/blog/images/userProfile.png'" src="${sessionScope.principal.userProfile}" width="40px" height="40px"/>
+    		</a>
+    		</li>
+    		 --%>
+    	
       	</c:otherwise>
       </c:choose>
     </ul>
     
-    <ul class="navbar-nav">
-    	<c:if test="${not empty sessionScope.principal}">
-    	<li class="nav-item">
-    		<a href="/onlineshop/user?cmd=profileUpload">
-    		<img style="border-radius:20px" onerror="this.src='/blog/images/userProfile.png'" src="${sessionScope.principal.userProfile}" width="40px" height="40px"/>
-    		</a>
-    	</li>
-    	</c:if>
-    </ul>
     
   </div>  
 </nav>

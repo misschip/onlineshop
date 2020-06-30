@@ -14,7 +14,7 @@ import com.cos.shop.action.Action;
 
 public abstract class AbstractController extends HttpServlet {
 	// private static final String TAG = "AbstractController : ";
-	private String TAG;
+	protected String TAG;
 	
 	public void init() {
 		TAG = this.getClass().getName() + " : ";

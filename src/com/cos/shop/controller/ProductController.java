@@ -4,21 +4,21 @@ package com.cos.shop.controller;
 import javax.servlet.annotation.WebServlet;
 
 import com.cos.shop.action.Action;
-import com.cos.shop.action.board.BoardDetailAction;
-import com.cos.shop.action.board.BoardHomeAction;
-import com.cos.shop.action.board.ListProductAction;
+import com.cos.shop.action.product.ListProductAction;
+import com.cos.shop.action.product.ProductDetailAction;
+import com.cos.shop.action.product.ProductHomeAction;
 
-@WebServlet("/board")
-public class BoardController extends AbstractController {
+@WebServlet("/product")
+public class ProductController extends AbstractController {
 
 	@Override
 	Action router(String cmd) {
 		if (cmd.equals("listProd")) {
 			return new ListProductAction();
 		} else if (cmd.equals("home")) {
-			return new BoardHomeAction();
+			return new ProductHomeAction();
 		} else if (cmd.equals("detail")) {
-			return new BoardDetailAction();
+			return new ProductDetailAction();
 		}
 		return null;
 	}

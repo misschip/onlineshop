@@ -1,4 +1,4 @@
-package com.cos.shop.action.board;
+package com.cos.shop.action.product;
 
 import java.io.IOException;
 
@@ -11,7 +11,7 @@ import com.cos.shop.action.Action;
 import com.cos.shop.model.Product;
 import com.cos.shop.repository.ProductRepository;
 
-public class BoardDetailAction implements Action {
+public class ProductDetailAction implements Action {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -29,7 +29,7 @@ public class BoardDetailAction implements Action {
 		
 		request.setAttribute("product", product);
 		
-		RequestDispatcher dis = request.getRequestDispatcher("detail.jsp");
+		RequestDispatcher dis = request.getRequestDispatcher("product/detail.jsp");
 		dis.forward(request, response);
 
 	}

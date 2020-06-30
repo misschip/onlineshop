@@ -1,4 +1,4 @@
-package com.cos.shop.action.board;
+package com.cos.shop.action.product;
 
 import java.io.IOException;
 import java.util.List;
@@ -13,7 +13,7 @@ import com.cos.shop.model.Product;
 import com.cos.shop.repository.ProductRepository;
 import com.cos.shop.util.TextParser;
 
-public class BoardHomeAction implements Action {
+public class ProductHomeAction implements Action {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

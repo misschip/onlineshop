@@ -1,4 +1,4 @@
-package com.cos.shop.action.board;
+package com.cos.shop.action.product;
 
 import java.io.IOException;
 import java.util.List;

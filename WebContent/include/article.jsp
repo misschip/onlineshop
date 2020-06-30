@@ -45,7 +45,7 @@ img {
     			<p class="card-text">${product.description}</p>
     			<%-- <p class="card-text">${product.price}원</p> --%>
     			<p class="card-text" align="right"><b>${product.price}원</b></p>
-    			<a href="board?cmd=detail&id=${product.id}" class=" stretched-link"></a>
+    			<a href="product?cmd=detail&id=${product.id}" class=" stretched-link"></a>
   			</div>
 		</div>
 		<%-- 카드 레이아웃 카드 한 블록 끝 --%>
