@@ -13,6 +13,8 @@ img {
 
 <%@ include file="../include/header.jsp" %>
 
+
+
 	<div class="container">
 
 		<div class="row">
@@ -30,13 +32,16 @@ img {
 				<h2 align="center">${product.name}</h2>
 				<p>무료배송</p>
 				
-				<form action="">
+				<form action="/onlineshop/cart">
+					<input type="hidden" name="cmd" value="add">
+					<input type="hidden" name="id" value="${product.id}">
+					
 					<div class="form-group">
 						<div class="bg light" align="center">
-							<span style="cursor:pointer;">➖ </span>
-							<input type="text" id="count" name="count" value="1" size="1">
-							<span style="cursor:pointer;">➕</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-							<span id="pprice">${product.price}원</span>
+							<span style="cursor:pointer;" id="minus" onclick="minusQuantity()">➖ </span>
+							<input type="text" id="quantity" name="quantity" value="1" size="1">
+							<span style="cursor:pointer;" id="plus" onclick="plusQuantity()">➕</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							<span id="pprice">${product.price}</span>원
 						</div>
 					</div>
 					
@@ -55,5 +60,7 @@ img {
 	
 	
 	</div>
+	
+	<script src="/onlineshop/js/cart.js"></script>
 	
 <%@ include file="../include/footer.jsp" %>
