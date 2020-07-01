@@ -61,6 +61,6 @@ img {
 	
 	</div>
 	
-	<script src="/onlineshop/js/cart.js"></script>
+	<script src="/onlineshop/js/detail.js"></script>
 	
 <%@ include file="../include/footer.jsp" %>
