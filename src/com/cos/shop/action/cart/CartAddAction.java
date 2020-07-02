@@ -17,6 +17,8 @@ public class CartAddAction implements Action {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("CartAddAction : execute() 실행");
+		
 		String idStr = request.getParameter("id");
 		String quantityStr = request.getParameter("quantity");
 		
