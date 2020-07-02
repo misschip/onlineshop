@@ -10,7 +10,7 @@ import com.cos.shop.db.DBConn;
 import com.cos.shop.dto.ProductResponseDto;
 import com.cos.shop.model.Category;
 import com.cos.shop.model.Product;
-import com.cos.shop.model.ProductImage;
+
 
 
 public class ProductRepository {

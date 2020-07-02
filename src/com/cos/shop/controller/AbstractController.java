@@ -32,7 +32,8 @@ public abstract class AbstractController extends HttpServlet {
 	protected void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		String cmd = request.getParameter("cmd");
-		// System.out.println(TAG + "doProcess : " + cmd);
+		
+		System.out.println(TAG + "doProcess : " + cmd);
 		Action action = router(cmd); 
 		action.execute(request, response);
 	}

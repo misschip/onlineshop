@@ -16,11 +16,13 @@ function goPopup(){
 }
 
 
-function jusoCallBack(roadFullAddr){
+function jusoCallBack(roadFullAddr, zipNo){
 		// 팝업페이지에서 주소입력한 정보를 받아서, 현 페이지에 정보를 등록합니다.
 		// document.form.roadFullAddr.value = roadFullAddr;
 		var tfAddress = document.querySelector("#address");
 		tfAddress.value = roadFullAddr;
+		
+		// input type="hidden" 필드에 우편번호(zipNo)를 넘기면 될 듯
 }
 
 //------------------- juso.go.kr 라이브러리 함수 (끝) ----------------

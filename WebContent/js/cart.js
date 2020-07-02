@@ -58,7 +58,7 @@
 	}
 	
 	
-	// 쇼핑카트에 담긴 상품들을 product id와 상품 개수 값을 key - value 쌍으로 담아서 반환함
+	// 쇼핑카트에 담긴 상품들을 product id와  해당 상품(product) 개수 값을 key - value 쌍으로 담아서 반환함
 	function getCart() {
 		var count = $("#itemCount").val();
 		var data = {};

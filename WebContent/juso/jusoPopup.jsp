@@ -9,9 +9,11 @@
 	//request.setCharacterEncoding("EUC-KR");  //해당시스템의 인코딩타입이 EUC-KR일경우에
 	String inputYn = request.getParameter("inputYn"); 
 	String roadFullAddr = request.getParameter("roadFullAddr"); // 선택한 주소값 받아오는 변수
+	String zipNo = request.getParameter("zipNo");	// 우편번호
 	
 	System.out.println("jusoPopup.jsp : inputYn : " + inputYn);
 	System.out.println("jusoPopup.jsp : roadFullAddr : " + roadFullAddr);
+	System.out.println("jusoPopup.jsp : zipNo : " + zipNo);
 %>
 </head>
 <script>
@@ -26,7 +28,9 @@
 function init(){
 	var url = location.href;
 	alert(url);	// 테스트 확인용
-	var confmKey = "devU01TX0FVVEgyMDIwMDYwMjA5NDkwMjEwOTgyMDE=";
+	// var confmKey = "devU01TX0FVVEgyMDIwMDYwMjA5NDkwMjEwOTgyMDE=";	// 학원에서
+	// var confmKey = "TESTJUSOGOKR";
+	var confmKey = "U01TX0FVVEgyMDIwMDcwMzAwMzgyMDEwOTkyMzM=";			// 집
 	var resultType = "4"; // 도로명주소 검색결과 화면 출력내용, 1 : 도로명, 2 : 도로명+지번, 3 : 도로명+상세건물명, 4 : 도로명+지번+상세건물명
 	var inputYn= "<%=inputYn%>";	// null
 	
@@ -41,7 +45,7 @@ function init(){
 		//document.form.action="http://www.juso.go.kr/addrlink/addrMobileLinkUrl.do"; //모바일 웹인 경우, 인터넷망
 		document.form.submit();
 	}else{
-		opener.jusoCallBack("<%=roadFullAddr%>");
+		opener.jusoCallBack("<%=roadFullAddr%>","<%=zipNo%>");
 		window.close();
 		}
 }
