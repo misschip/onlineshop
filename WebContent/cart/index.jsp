@@ -46,6 +46,7 @@ img {
 			
 			<c:if test="${status.last}">
 				<input type="hidden" id="itemCount" name="itemCount" value="${status.count}"><%-- 현재 장바구니의 상품 가지수 --%>
+				<button class="btn btn-primary" onclick="saveCart();return false;">장바구니 저장하기</button>
 			</c:if>
 	  	</c:forEach>
 	  	</form>
