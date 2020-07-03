@@ -1,4 +1,4 @@
-package com.cos.shop.action.cart;
+package com.cos.shop.action.pay;
 
 import java.io.IOException;
 
@@ -8,12 +8,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.cos.shop.action.Action;
 
-public class CartPayAction implements Action {
-
+public class PayHomeAction implements Action {
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-
+		
 	}
-
 }

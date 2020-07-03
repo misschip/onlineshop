@@ -5,7 +5,7 @@ import javax.servlet.annotation.WebServlet;
 import com.cos.shop.action.Action;
 import com.cos.shop.action.cart.CartAddAction;
 import com.cos.shop.action.cart.CartHomeAction;
-import com.cos.shop.action.cart.CartPayAction;
+
 import com.cos.shop.action.cart.CartRemoveAction;
 import com.cos.shop.action.cart.CartSaveAction;
 
@@ -26,9 +26,7 @@ public class CartController extends AbstractController {
 			return new CartSaveAction();
 		} else if (cmd.equals("home")) {
 			return new CartHomeAction();
-		} else if (cmd.equals("pay")) {
-			return new CartPayAction();
-		} 
+		}
 		
 		return null;
 	}

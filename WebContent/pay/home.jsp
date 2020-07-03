@@ -15,13 +15,13 @@ img {
 
 <div class="container">
 
-	<h2>장바구니 보기</h2>
+	<h2>주문 하기</h2>
 	
 	<div class="row">
 	
 	  <div class="col-sm-7">
-	  	<%-- form action 직전에 장바구니 다시 저장(onsubmit). +,- 버튼으로 수량 변경이 있었을 수 있으므로  --%>
-	  	<form id="cartForm" method="post" action="pay/home.jsp" onsubmit="saveCart()">
+	  	
+	  	<c:set var="total" value="${0}" />
 	  	<c:forEach var="entry" items="${cart}" varStatus="status">
 	  		<div class="row border border-left-0 border-right-0">
 				<div class="col">
@@ -32,25 +32,27 @@ img {
 				 	${entry.key.name}
 				</div>
 				<div class="col">
-				 	<span style="cursor:pointer;" id="minus" onclick="minusQuantity('quantity-${status.count}')">➖ </span>
-							<input type="text" id="quantity-${status.count}" name="quantity" value="${entry.value}" size="1">
-							<span style="cursor:pointer;" id="plus" onclick="plusQuantity('quantity-${status.count}')">➕</span>
+					${entry.key.price} &nbsp;&nbsp;&nbsp; x &nbsp;&nbsp;&nbsp; ${entry.value} &nbsp;&nbsp;&nbsp; =
 				</div>
+				
 				<div class="col">
-					<span id="pprice-${status.count}">${entry.key.price}</span>원
+					<span style="font-size: 18px;font-weight:bold;">${entry.key.price * entry.value}</span> 원
 				</div>
+				<%-- 
 				<div class="col">
 					<span id="subSum-${status.count}">${entry.key.price * entry.value}</span>원
 				</div>
-				
+				--%>
 			</div>
 			
 			<c:if test="${status.last}">
 				<input type="hidden" id="itemCount" name="itemCount" value="${status.count}"><%-- 현재 장바구니의 상품 가지수 --%>
-				<button class="btn btn-primary" onclick="saveCart();return false;">장바구니 저장하기</button>
 			</c:if>
+			
+			<%-- 상품별 부분합을 누적해서 총 합계 금액을 구함 --%>
+			<c:set var="total" value="${total + (entry.key.price * entry.value)}" />
 	  	</c:forEach>
-	  	</form>
+
 	  </div>
 	  
 	  
@@ -60,9 +62,10 @@ img {
 	  			<div class="card-body text-right">
 	  				<h3 class="card-title">합 계</h3>
 	  				<hr />
-	  				<h5><span id="totalSum"></span>원</h5>
+	  				<h5><span id="totalSum"><c:out value="${total}" /></span> 원</h5>
 	  				<%-- form 태그 외부에 놓인 button이 form으로 action을 날림 --%>
-					<button type="submit" form="cartForm" class="btn btn-primary">주문하기</button>
+				<%-- 	<a href="/onlineshop/pay?cmd=payProc&total=${total}" class="btn btn-primary">결제하기</a> --%>
+					<a href="/onlineshop/pay/payForm.jsp?total=${total}" class="btn btn-primary">결제하기</a>
 	  			</div>
 	  			
 	  		</div>
@@ -70,10 +73,26 @@ img {
 	  </div>
 
 	</div>
+	
+	<br/><br/><br/><br/><br/>
+	
+	
+	<h4>배송지 정보</h4>
+	<div class="row">
+		<div class="col-sm-7">
+			<div class="row border border-left-0 border-right-0">
+				<div class="col">
+					<div style="font-weight:bold">주소 : ${sessionScope.principal.address} <br/>
+					         전화번호 : ${sessionScope.principal.phone} <br/>
+					         이메일 : ${sessionScope.principal.email}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 
 </div>
 
 
-<script src="/onlineshop/js/cart.js"></script>
 
 <%@ include file="../include/footer.jsp" %>    

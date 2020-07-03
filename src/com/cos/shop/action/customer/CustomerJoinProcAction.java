@@ -7,9 +7,15 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.cos.shop.action.Action;
+import com.cos.shop.model.Customer;
+import com.cos.shop.repository.CustomerRepository;
+import com.cos.shop.util.SHA256;
+import com.cos.shop.util.Script;
 
 
-public class UsersJoinProcAction implements Action {
+
+public class CustomerJoinProcAction implements Action {
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 0. 유효성 검사
@@ -30,8 +36,9 @@ public class UsersJoinProcAction implements Action {
 		
 		// 1. 파라메터 받기 (x-www-form-urlencoded 라는 MIME 타입. key=value)
 		String username = request.getParameter("username");
-		String rawPassword = request.getParameter("password");
-		String password = SHA256.encodeSha256(rawPassword);
+		String password = request.getParameter("password");
+		// String rawPassword = request.getParameter("password");		
+		// String password = SHA256.encodeSha256(rawPassword);
 		String email = request.getParameter("email");
 		String address = request.getParameter("address");
 		

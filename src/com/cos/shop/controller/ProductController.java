@@ -8,6 +8,7 @@ import com.cos.shop.action.product.ListProductAction;
 import com.cos.shop.action.product.ProductDetailAction;
 import com.cos.shop.action.product.ProductHomeAction;
 
+// @WebServlet(urlPatterns = {"/product", "/product/"})
 @WebServlet("/product")
 public class ProductController extends AbstractController {
 
