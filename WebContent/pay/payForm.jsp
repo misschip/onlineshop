@@ -22,10 +22,18 @@
 <body>
 	<!-- [2] -->
   <script>
- 
-  	finalPay('${param.total}');
 
-  	
+  	initStage();
+ 
+  	finalPay('${param.totalPrice}');
+
+
+  	function initStage() {
+		// var cartJson = '${cart}';
+		// var principalJson = '${principalJson}';
+
+		
+  	}
   	
     function finalPay(totalPrice) {
     	console.log("finalPay 함수가 실행됨");
@@ -43,7 +51,7 @@
             buyer_name: '${principal.username}',
             buyer_tel: '${principal.phone}',
             buyer_addr: '${principal.address}',
-            buyer_postcode: '123-456',
+            buyer_postcode: '${principal.zipNo}',
             m_redirect_url: 'http://localhost:8000/onlineshop/cart?cmd=pay'
         }, function (rsp) {
             if (rsp.success) {
@@ -57,9 +65,9 @@
                 
                 $.ajax({
                 	type: "post",
-    	    		url: "/onlineshop/pay?cmd=saveOrder",
+    	    		url: "/onlineshop/orders?cmd=saveOrder",
     	    		// data: "id="+id+"&totalPrice="+totalPrice,
-    	    		data: "paid_amount=" + rsp.paid_amount + "&apply_num=" + rsp.apply_num,
+    	    		data: "imp_uid=" + rsp.imp_uid + "&merchant_uid=" + rsp.merchant_uid + "&paid_amount=" + rsp.paid_amount + "&apply_num=" + rsp.apply_num,
     	    		contentType: "application/x-www-form-urlencoded; charset=utf-8",
     	    		dataType: "text"
                 	

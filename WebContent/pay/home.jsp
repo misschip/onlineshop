@@ -64,8 +64,8 @@ img {
 	  				<hr />
 	  				<h5><span id="totalSum"><c:out value="${total}" /></span> 원</h5>
 	  				<%-- form 태그 외부에 놓인 button이 form으로 action을 날림 --%>
-				<%-- 	<a href="/onlineshop/pay?cmd=payProc&total=${total}" class="btn btn-primary">결제하기</a> --%>
-					<a href="/onlineshop/pay/payForm.jsp?total=${total}" class="btn btn-primary">결제하기</a>
+					<button type="submit" form="payForm" class="btn btn-primary">결제하기</button>
+					<%-- <a href="/onlineshop/pay/payForm.jsp?total=${total}" class="btn btn-primary">결제하기</a> --%>
 	  			</div>
 	  			
 	  		</div>
@@ -82,7 +82,7 @@ img {
 		<div class="col-sm-7">
 			<div class="row border border-left-0 border-right-0">
 				
-				<form action="/action_page.php" style="width:60%">
+				<form id="payForm" action="/onlineshop/pay/payForm.jsp" style="width:60%" method="POST">
 						<input type="checkbox" checked="checked" id="checkAddr" onchange="shippingAddr();"> 
 					    <label>&nbsp;주소지와 동일</label><br/><br/>
 					    
@@ -103,7 +103,9 @@ img {
 					    <label>이메일:</label>
 					    <input type="text" class="form-control" value="${principal.email}" id="email">
 					
-				</form> 
+						<input type="hidden" value="${total}" id="totalPrice" name="totalPrice"> <%-- 결제 총액 --%>
+									<%-- 장바구니에 모든 구매품과 수량이 들어있고 이 정보는 세션에 이미 존재하므로 --%>
+				</form> 			<%-- 여기서는 총액 정도만 넘겨 주고 다음 단계에서 총액 비교함으로써 간단한 검증을 하면 될 듯 --%>
 			</div>
 		</div>
 	</div>
