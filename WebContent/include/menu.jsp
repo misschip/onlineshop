@@ -5,7 +5,7 @@
 
 
 <%
-
+	// Map<대분류명,Map<소분류명,카테고리id>>
 	Map<String,Map<String,Integer>> menuMap = MenuUtil.prepareMenuMap();
 	
 	request.setAttribute("menus",menuMap);
@@ -37,7 +37,7 @@
       			<ul class="list-group">
       				<c:forEach var="subMenu" items="${entry.value}">
 	      				<li class="list-group-item d-flex justify-content-between align-items-center">
-	      				<a href="/onlineshop/board?cmd=listProd&cate=${subMenu.value}">${subMenu.key}</a>
+	      				<a href="/onlineshop/product?cmd=listByCate&cate=${subMenu.value}&page=0">${subMenu.key}</a>
 	      				<span class="badge badge-primary badge-pill">3</span> <%-- 해당 카테고리 내의 상품 건수 표출하는 이 부분은 구현해야 --%>
 	      				</li>
       				</c:forEach>

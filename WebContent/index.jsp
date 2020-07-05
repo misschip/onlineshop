@@ -2,4 +2,4 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
     
-<c:redirect url="/product?cmd=home" />
+<c:redirect url="/product?cmd=home&page=0" />

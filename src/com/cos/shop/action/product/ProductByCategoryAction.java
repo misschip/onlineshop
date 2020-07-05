@@ -12,27 +12,33 @@ import javax.servlet.http.HttpSession;
 import com.cos.shop.action.Action;
 import com.cos.shop.model.Product;
 import com.cos.shop.repository.ProductRepository;
-import com.cos.shop.util.TextParser;
 
-public class ProductHomeAction implements Action {
+public class ProductByCategoryAction implements Action {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+		String categoryIdStr = request.getParameter("cate");
 		int page = Integer.parseInt(request.getParameter("page"));
 		
-		ProductRepository productRepository = ProductRepository.getInstance();
-		List<Product> products = productRepository.findAll(page);
-
-		// 상품 설명이 길 경우에 상품 리스팅에 표출될 부분에 맞추기 위해 description 부분을 정리함
-		for (Product product : products) {
-			String preview = TextParser.getTextPreview(product.getDescription(), 50);
-			product.setDescription(preview);
+		System.out.println("ProductByCategoryAction : categoryId : " + categoryIdStr);
+		
+		if (categoryIdStr == null || categoryIdStr.equals("")) {
+			System.out.println("categoryId 값을 받아오지 못했습니다.");
+			return;
 		}
 		
-		// request에 저장
+		int categoryId = Integer.parseInt(categoryIdStr);
+		
+		ProductRepository productRepository = ProductRepository.getInstance();
+		List<Product> products = productRepository.findByCategoryId(page, categoryId);
+		
+		System.out.println("ProductByCategoryAction : products.size() : " + products.size());
+		
 		request.setAttribute("products", products);
 		
-		int total = productRepository.count();
+		
+		int total = productRepository.countByCategory(categoryId);
 		int lastPage = (total-1)/9;		// 한 페이지에 9개씩의 상품을 표출
 		
 		request.setAttribute("lastPage", lastPage);
@@ -43,7 +49,7 @@ public class ProductHomeAction implements Action {
 		session.setAttribute("backKeyword", null);
 		
 		
-		RequestDispatcher dis = request.getRequestDispatcher("home.jsp");
+		RequestDispatcher dis = request.getRequestDispatcher("product/list.jsp");
 		dis.forward(request, response);
 	}
 

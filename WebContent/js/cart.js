@@ -36,7 +36,7 @@
 		var price = $("#pprice-"+num).text();
 		var total = price * qty;
 		
-		$("#subSum-"+num).text(total);
+		$("#subSum-"+num).val(total);
 		
 		// 특정 항목 개수 변할 때 부분 합계 뿐 아니라 전체 합계도 바로 계산되어 표출
 		totalSum();
@@ -49,7 +49,7 @@
 		var count = $("#itemCount").val();
 		
 		for (i=1; i<=count; i++) {
-			totalSum = totalSum + Number($("#subSum-"+ i).text());
+			totalSum = totalSum + Number($("#subSum-"+ i).val());
 		}
 
 		$("#totalSum").text(totalSum);
@@ -97,8 +97,51 @@
 		}).done(function(result){
 			if (result == 1) {
 				alert("장바구니 저장 완료!");
+			} else {
+				alert("장바구니 저장 실패 결과값 : ", result);
 			}
 		}).fail(function(error){
+			alert("fail() : 장바구니 저장 실패!");
 			console.log(error);
 		});
+
+	}
+	
+	
+	function saveCartAndPay() {
+		var data = getCart();
+		
+		console.log("function : savaCartAndPlay() : data : ");
+		console.log(data);
+		
+		$.ajax({
+			type: "post",
+			url: "/onlineshop/cart?cmd=save",
+			data: JSON.stringify(data),
+			// contentType: "application/x-www-form-urlencoded; charset=utf-8",
+			contentType: "application/json; charset=utf-8",
+			dataType: "text"
+					
+		}).done(function(result){
+			if (result == 1) {
+				alert("장바구니 저장 완료!");
+				
+				// 위 ajax 콜이 성공한 경우 이어서 아래로 이동
+				window.location = "pay?cmd=home";
+				
+			} else {
+				alert("장바구니 저장 실패 결과값 : ", result);
+			}
+		}).fail(function(error){
+			alert("fail() : 장바구니 저장 실패!");
+			console.log(error);
+		});
+
+	}	
+	
+	
+	// 테스트를 위해 넣은 함수임. 실제로 쓸 읽은 없다!
+	function sleep (delay) {
+		   var start = new Date().getTime();
+		   while (new Date().getTime() < start + delay);
 	}

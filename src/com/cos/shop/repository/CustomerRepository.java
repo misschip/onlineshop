@@ -24,6 +24,46 @@ public class CustomerRepository {
 	private PreparedStatement pstmt = null;
 	private ResultSet rs = null;
 	
+
+	public Customer findById(int id) {
+		final String SQL = "SELECT id,username,password,phone,email,address,zipNo,registerdate FROM customer "
+							+ " WHERE id = ?";
+		
+		Customer customer = null;
+		
+		try {
+			conn = DBConn.getConnection();
+			pstmt = conn.prepareStatement(SQL);
+			
+			pstmt.setInt(1, id);
+
+			
+			rs = pstmt.executeQuery();
+			
+			if (rs.next()) {
+				customer = Customer.builder()
+						.id(rs.getInt("id"))
+						.username(rs.getString("username"))
+						.phone(rs.getString("phone"))
+						.email(rs.getString("email"))
+						.address(rs.getString("address"))
+						.zipNo(rs.getInt("zipNo"))
+						.registerDate(rs.getTimestamp("registerdate"))
+						.build();
+								
+				return customer;
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println(TAG + "findById : " + e.getMessage());
+		} finally {
+			DBConn.close(conn, pstmt, rs);
+		}
+		
+		return null;
+	}	
+	
 	
 	
 	public Customer findByUsername(String username) {
@@ -66,7 +106,7 @@ public class CustomerRepository {
 	
 	
 	public Customer findByUsernameAndPassword(String username, String password) {
-		final String SQL = "SELECT id,username,password,phone,email,address,registerdate FROM customer "
+		final String SQL = "SELECT id,username,password,phone,email,address,zipNo,registerdate FROM customer "
 							+ " WHERE username = ? AND password = ?";
 		
 		Customer customer = null;
@@ -87,6 +127,7 @@ public class CustomerRepository {
 						.phone(rs.getString("phone"))
 						.email(rs.getString("email"))
 						.address(rs.getString("address"))
+						.zipNo(rs.getInt("zipNo"))
 						.registerDate(rs.getTimestamp("registerdate"))
 						.build();
 								
@@ -105,12 +146,22 @@ public class CustomerRepository {
 	
 	
 	public int save(Customer customer) {
-		final String SQL = "";
+		final String SQL = "INSERT INTO customer (id,username,password,phone,email,address,registerdate,zipno) "
+							+ " VALUES (customer_seq.nextval,?,?,?,?,?,sysdate,?)";
 		
 		try {
 			conn = DBConn.getConnection();
 			pstmt = conn.prepareStatement(SQL);
 			
+			pstmt.setString(1, customer.getUsername());
+			pstmt.setString(2, customer.getPassword());
+			pstmt.setString(3, customer.getPhone());
+			pstmt.setString(4, customer.getEmail());
+			pstmt.setString(5, customer.getAddress());
+			pstmt.setInt(6, customer.getZipNo());
+			
+			int result = pstmt.executeUpdate();
+			return result;
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -124,12 +175,18 @@ public class CustomerRepository {
 	
 	
 	public int update(Customer customer) {
-		final String SQL = "";
-		
+		final String SQL = "UPDATE customer SET password = ?, phone = ?, email = ?, address = ?, zipno = ? "
+							+ " WHERE id = ?";
 		try {
 			conn = DBConn.getConnection();
 			pstmt = conn.prepareStatement(SQL);
 			
+			pstmt.setString(1, customer.getPassword());
+			pstmt.setString(2, customer.getPhone());
+			pstmt.setString(3, customer.getEmail());
+			pstmt.setString(4, customer.getAddress());
+			pstmt.setInt(5, customer.getZipNo());
+			pstmt.setInt(6, customer.getId());
 			
 			return pstmt.executeUpdate();
 		} catch (Exception e) {

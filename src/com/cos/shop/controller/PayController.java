@@ -11,6 +11,7 @@ public class PayController extends AbstractController {
 
 	@Override
 	Action router(String cmd) {
+		System.out.println(TAG + " cmd : " + cmd);
 		if (cmd.equals("home")) {
 			return new PayHomeAction();
 		} else if (cmd.equals("payProc")) {

@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>    
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,6 +15,12 @@
 
 </head>
 <body>
+
+	<%-- 어떤 이유로든 관리자 로그인이 풀리면 다시 로그인 페이지로 보냄 --%>
+	<c:if test="${empty manager}">
+		<c:redirect url="/admin/login.jsp" />
+	</c:if>
+
 
 <div class="container">
 	

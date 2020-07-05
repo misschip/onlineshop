@@ -81,18 +81,40 @@ img {
 	<div class="row">
 		<div class="col-sm-7">
 			<div class="row border border-left-0 border-right-0">
-				<div class="col">
-					<div style="font-weight:bold">주소 : ${sessionScope.principal.address} <br/>
-					         전화번호 : ${sessionScope.principal.phone} <br/>
-					         이메일 : ${sessionScope.principal.email}
-					</div>
-				</div>
+				
+				<form action="/action_page.php" style="width:60%">
+						<input type="checkbox" checked="checked" id="checkAddr" onchange="shippingAddr();"> 
+					    <label>&nbsp;주소지와 동일</label><br/><br/>
+					    
+						<label>이름:</label>
+					    <input type="text" class="form-control" value="${principal.username}" id="username">
+					    	 
+					    <label>배송주소:</label>
+					    <button type="button" class="btn btn-warning float-right" onClick="goPopup()">주소검색</button>
+					    <input type="text" class="form-control" value="${principal.address}" id="address">
+
+						<label>우편번호:</label>
+					    <input type="text" class="form-control" value="${principal.zipNo}" id="zipno">
+
+					    <label>전화번호:</label>
+					    <input type="text" class="form-control" value="${principal.phone}" id="phone">
+
+
+					    <label>이메일:</label>
+					    <input type="text" class="form-control" value="${principal.email}" id="email">
+					
+				</form> 
 			</div>
 		</div>
 	</div>
+		
+	
+
 
 </div>
 
 
+<script src="/onlineshop/js/pay.js"></script>
+<script src="/onlineshop/js/join.js"></script>
 
 <%@ include file="../include/footer.jsp" %>    

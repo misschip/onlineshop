@@ -10,6 +10,6 @@
 
 <%@ include file="include/article.jsp" %>
 
-
+<%@ include file="include/paging.jsp" %>
 
 <%@ include file="include/footer.jsp" %>

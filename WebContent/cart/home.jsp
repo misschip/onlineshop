@@ -21,7 +21,9 @@ img {
 	
 	  <div class="col-sm-7">
 	  	<%-- form action 직전에 장바구니 다시 저장(onsubmit). +,- 버튼으로 수량 변경이 있었을 수 있으므로  --%>
-	  	<form id="cartForm" method="post" action="pay/home.jsp" onsubmit="saveCart()">
+	  	<form id="cartForm" onsubmit="saveCartAndPay(); return false;">
+	  	
+	  	
 	  	<c:forEach var="entry" items="${cart}" varStatus="status">
 	  		<div class="row border border-left-0 border-right-0">
 				<div class="col">
@@ -40,7 +42,7 @@ img {
 					<span id="pprice-${status.count}">${entry.key.price}</span>원
 				</div>
 				<div class="col">
-					<span id="subSum-${status.count}">${entry.key.price * entry.value}</span>원
+					<input id="subSum-${status.count}" value="${entry.key.price * entry.value}" size="1"> 원
 				</div>
 				
 			</div>

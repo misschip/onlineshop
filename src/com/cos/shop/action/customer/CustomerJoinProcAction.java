@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.cos.shop.action.Action;
 import com.cos.shop.model.Customer;
 import com.cos.shop.repository.CustomerRepository;
-import com.cos.shop.util.SHA256;
+
 import com.cos.shop.util.Script;
 
 
@@ -25,10 +25,14 @@ public class CustomerJoinProcAction implements Action {
 				request.getParameter("username").equals("") ||
 				request.getParameter("password") == null ||
 				request.getParameter("password").equals("") ||
+				request.getParameter("phone") == null ||
+				request.getParameter("phone").equals("") ||
 				request.getParameter("email") == null ||
 				request.getParameter("email").equals("") ||
 				request.getParameter("address") == null ||
-				request.getParameter("address").equals("")
+				request.getParameter("address").equals("") ||
+				request.getParameter("zipno") == null ||
+				request.getParameter("zipno").equals("")
 				) {
 			// request로부터 상대방의 ip 주소등을 로그로 남기는게 좋다고 함 (공격자)
 			return;
@@ -39,16 +43,20 @@ public class CustomerJoinProcAction implements Action {
 		String password = request.getParameter("password");
 		// String rawPassword = request.getParameter("password");		
 		// String password = SHA256.encodeSha256(rawPassword);
+		String phone = request.getParameter("phone");
 		String email = request.getParameter("email");
 		String address = request.getParameter("address");
+		String zipNo = request.getParameter("zipno");
 		
 		
 		// 2. User 오브젝트 변환
 		Customer customer = Customer.builder()
 				.username(username)
 				.password(password)
+				.phone(phone)
 				.email(email)
 				.address(address)
+				.zipNo(Integer.parseInt(zipNo))
 				.build();
 		
 		// 3. DB 연결 - CustomerRepository의 save() 호출

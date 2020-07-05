@@ -28,6 +28,209 @@ public class ProductRepository {
 	
 	
 	
+	public int countByKeyword(String keyword) {
+		final String SQL = "SELECT count(*) FROM product "
+				+ " WHERE name LIKE ? OR description LIKE ?";
+
+		try {
+			conn = DBConn.getConnection();
+			pstmt = conn.prepareStatement(SQL);
+			
+			pstmt.setString(1, keyword);
+			pstmt.setString(2, keyword);
+	
+			rs = pstmt.executeQuery();
+			
+			if (rs.next()) {
+				return rs.getInt(1);
+			}
+		
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println(TAG + "countByKeyword(keyword) : " + e.getMessage());
+		} finally {
+			DBConn.close(conn, pstmt, rs);
+		}
+		
+		return -1;
+		
+	}	
+	
+	
+	public int countByCategory(int categoryId) {
+		final String SQL = "SELECT count(*) FROM product "
+				+ " WHERE category_id = ?";
+
+		try {
+			conn = DBConn.getConnection();
+			pstmt = conn.prepareStatement(SQL);
+			
+			pstmt.setInt(1, categoryId);
+	
+			rs = pstmt.executeQuery();
+			
+			if (rs.next()) {
+				return rs.getInt(1);
+			}
+		
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println(TAG + "countByCategory(cateId) : " + e.getMessage());
+		} finally {
+			DBConn.close(conn, pstmt, rs);
+		}
+		
+		return -1;
+		
+	}
+	
+	
+	public int count(String keyword) {
+		final String SQL = "SELECT count(*) FROM product "
+							+ " WHERE name LIKE ? OR description LIKE ?";
+		
+		try {
+			conn = DBConn.getConnection();
+			pstmt = conn.prepareStatement(SQL);
+			
+			pstmt.setString(1, keyword);
+			pstmt.setString(2, keyword);
+			
+			rs = pstmt.executeQuery();
+			
+			if (rs.next()) {
+				return rs.getInt(1);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println(TAG + "count(keyword) : " + e.getMessage());
+		} finally {
+			DBConn.close(conn, pstmt, rs);
+		}
+		return -1;
+	}	
+	
+	
+	
+	public int count() {
+		final String SQL = "SELECT count(*) FROM product";
+		
+		try {
+			conn = DBConn.getConnection();
+			pstmt = conn.prepareStatement(SQL);
+			
+			rs = pstmt.executeQuery();
+			
+			if (rs.next()) {
+				return rs.getInt(1);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println(TAG + "count : " + e.getMessage());
+		} finally {
+			DBConn.close(conn, pstmt, rs);
+		}
+		return -1;
+	}	
+	
+	
+	
+	// 특정 page를 위해 9개의 Product 를 반환함
+	// SQL 중에 OFFSET ? ROWS FETCH NEXT 9 ROWS ONLY 부분이 중요
+	public List<Product> findByKeyword(int page, String keyword) {
+		final String SQL = "SELECT id,category_id,name,description,price,image1,image2,image3 "
+							+ " FROM product "
+							+ " WHERE name LIKE ? OR description LIKE ? "
+							+ " OFFSET ? ROWS FETCH NEXT 9 ROWS ONLY";
+		
+		try {
+			conn = DBConn.getConnection();
+			pstmt = conn.prepareStatement(SQL);
+			
+			pstmt.setString(1, "%" + keyword + "%");
+			pstmt.setString(2, "%" + keyword + "%");
+			pstmt.setInt(3, 9*page);
+			
+			rs = pstmt.executeQuery();
+			
+			List<Product> products = new ArrayList<>();
+			
+			while (rs.next()) {
+				Product product = Product.builder()
+						.id(rs.getInt("id"))
+						.category_id(rs.getInt("category_id"))
+						.name(rs.getString("name"))
+						.description(rs.getString("description"))
+						.price(rs.getInt("price"))
+						.image1(rs.getString("image1"))
+						.image2(rs.getString("image2"))
+						.image3(rs.getString("image3"))
+						.build();
+				
+				products.add(product);
+			}
+			
+			return products;
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println(TAG + "findByKeyword : " + e.getMessage());
+		} finally {
+			DBConn.close(conn, pstmt, rs);
+		}
+		
+		return null;		
+		
+	}		
+	
+	
+	
+	public List<Product> findByCategoryId(int page, int categoryId) {
+		final String SQL = "SELECT id,category_id,name,description,price,image1,image2,image3 "
+							+ " FROM product "
+							+ " WHERE category_id = ? "
+							+ " OFFSET ? ROWS FETCH NEXT 9 ROWS ONLY";
+		
+		try {
+			conn = DBConn.getConnection();
+			pstmt = conn.prepareStatement(SQL);
+			
+			pstmt.setInt(1, categoryId);
+			pstmt.setInt(2, 9*page);
+			
+			rs = pstmt.executeQuery();
+			
+			List<Product> products = new ArrayList<>();
+			
+			while (rs.next()) {
+				Product product = Product.builder()
+						.id(rs.getInt("id"))
+						.category_id(rs.getInt("category_id"))
+						.name(rs.getString("name"))
+						.description(rs.getString("description"))
+						.price(rs.getInt("price"))
+						.image1(rs.getString("image1"))
+						.image2(rs.getString("image2"))
+						.image3(rs.getString("image3"))
+						.build();
+				
+				products.add(product);
+			}
+			
+			return products;
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println(TAG + "findByCategoryId : " + e.getMessage());
+		} finally {
+			DBConn.close(conn, pstmt, rs);
+		}
+		
+		return null;		
+		
+	}	
+	
+	
+	
 	public Product findById(int id) {
 		final String SQL = "SELECT id,category_id,name,description,price,image1,image2,image3 FROM product "
 							+ "WHERE id = ?";
@@ -197,30 +400,23 @@ public class ProductRepository {
 
 	
 
-	public List<Product> findAll() {
-		final String SQL = "SELECT id,category_id,name,description,price,image1,image2,image3 FROM product";
+	public List<Product> findAll(int page) {
+		final String SQL = "SELECT id,category_id,name,description,price,image1,image2,image3 "
+							+ " FROM product "
+							+ " OFFSET ? ROWS FETCH NEXT 9 ROWS ONLY";
+		
 		List<Product> products = new ArrayList<>();
 		
 		try {
 			conn = DBConn.getConnection();
 			pstmt = conn.prepareStatement(SQL);
 			// 물음표 완성하기
+			pstmt.setInt(1, 9*page);
 			
 			rs = pstmt.executeQuery();
 			// while 돌려서 리스트에 넣기
 			while(rs.next()) {
 				
-				/*
-				String image1 = rs.getString("image1");
-				System.out.println(TAG + "findAll() : image1 :" + image1);
-				String image1updated = "";
-				if (image1 == null || image1.equals("")) {
-					image1updated = image1;
-				} else {
-					image1updated = image1.replace("\\","/");
-				}
-				System.out.println(TAG + "findAll() : image1updated :" + image1updated);
-				*/
 				Product product = Product.builder()
 						.id(rs.getInt("id"))
 						.category_id(rs.getInt("category_id"))

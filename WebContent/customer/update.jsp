@@ -8,12 +8,14 @@
 <div class="container">
 	<div class="col-sm-5">
 		<!-- 아래 onsumbit에서 return validate()가 true인 경우에만 action 실행됨 -->
-		<form action="/onlineshop/customer?cmd=joinProc" method="POST" class="was-validated" onsubmit="return validate()">
+		<form action="/onlineshop/customer?cmd=updateProc" method="POST" class="was-validated">
+		  
+		  <input type="hidden" name="id" value="${sessionScope.principal.id}"/>
 		  
 		  <div class="form-group">
 		    <label for="username">아이디:</label>
-		    <button type="button" class="btn btn-warning float-right" onClick="usernameCheck()">중복확인</button>
-		    <input type="text" class="form-control" id="username" placeholder="아이디 입력" name="username" required>
+		    
+		    <input value="${principal.username}" type="text" class="form-control" id="username" placeholder="아이디 입력" name="username" required readonly>
 		    
 		    
 		  </div>
@@ -26,12 +28,12 @@
 		  
 		  <div class="form-group">
 		   <label for="phone">휴대전화:</label>
-		   <input type="text" class="form-control" id="phone" placeholder="휴대전화 입력" name="phone" required>
+		   <input value="${principal.phone}" type="text" class="form-control" id="phone" placeholder="휴대전화 입력" name="phone" required>
 		  </div>
 		  
 		   <div class="form-group">
 		    <label for="email">이메일:</label>
-		    <input type="email" class="form-control" id="email" placeholder="이메일 입력" name="email" required>
+		    <input value="${principal.email}" type="email" class="form-control" id="email" placeholder="이메일 입력" name="email" required>
 
 		  </div>
 		  
@@ -42,13 +44,13 @@
 		    <button type="button" class="btn btn-warning float-right" onClick="goPopup()">주소검색</button>
 		    <!--  위 버튼 type="button"으로 해야 눌러도 submit이 일어나지 않는다. 그래서 validation check 에러가 안남 -->
 		    <!-- 만약 input type="submit" 으로 하면 클릭시 validation check로 빈 필드에 먼저 입력해야 한다는 알림이 뜨게 되는 현상 -->
-		    <input type="text" class="form-control" id="address" placeholder="주소 입력" name="address" required readonly>
+		    <input value="${principal.address}" type="text" class="form-control" id="address" placeholder="주소 입력" name="address" required readonly>
 
-		    <input type="text"  id="zipno" placeholder="우편번호" name="zipno" size="7">
+		    <input value="${principal.zipNo}" type="text"  id="zipno" placeholder="우편번호" name="zipno" size="7" readonly>
 		  </div>
 
 		
-		  <button type="submit" class="btn btn-primary">가 입</button>
+		  <button type="submit" class="btn btn-primary">수 정</button>
 		  
 		</form>
 	

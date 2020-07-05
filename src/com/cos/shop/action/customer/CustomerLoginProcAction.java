@@ -52,7 +52,7 @@ public class CustomerLoginProcAction implements Action {
 				response.addCookie(cookie);
 			}
 			
-			Script.href("로그인 성공", "/onlineshop/product?cmd=home", response);
+			Script.href("로그인 성공", "/onlineshop/product?cmd=home&page=0", response);
 		} else {
 			Script.back("로그인  실패", response);
 		}

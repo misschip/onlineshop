@@ -20,5 +20,6 @@ public class Customer {
 	private String phone;
 	private String email;
 	private String address;
+	private int zipNo;
 	private Timestamp registerDate;
 }

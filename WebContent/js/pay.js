@@ -32,3 +32,43 @@
             alert(msg);
         });
     }
+    
+    
+    
+    function shippingAddr() {
+    	if ($("#checkAddr").is(":checked") == true) {	// 체크박스 체크된 경우
+    		console.log("주소지와 배송지 동일!");
+    		console.log($("#checkAddr").is(":checked"));
+    		
+    		$.ajax({
+    			type: "get",
+    			url: "/onlineshop/customer?cmd=getPrincipal",
+    			data: "",
+    			contentType: "application/x-www-form-urlencoded; charset=utf-8",
+    			// dataType: "application/json; charset=utf-8"
+    			dataType: "text"	// application/json으로 하면 parsererror가 발생함에 주의
+    				
+    		}).done(function(result){
+    			var customer = JSON.parse(result);
+    			
+    			$("#username").val(customer['username']);
+        		$("#address").val(customer['address']);
+        		$("#zipno").val(customer['zipNo']);
+        		$("#phone").val(customer['phone']);
+        		$("#email").val(customer['email']);
+    		}).fail(function(error){
+    			console.log("ajax 실행 실패");
+    			console.log(error);
+    		});
+    		
+    	} else {			// 체크 안된 경우
+    		console.log("주소지와 배송지 다름!");
+    		console.log($("#checkAddr").is(":checked"));
+    		
+    		$("#username").val("");
+    		$("#address").val("");
+    		$("#zipno").val("");
+    		$("#phone").val("");
+    		$("#email").val("");
+    	}
+    }

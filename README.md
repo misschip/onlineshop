@@ -45,26 +45,15 @@ CREATE TABLE product (
 );
 
 
-------- 이 테이블 삭제 예정
-CREATE TABLE productimage (
-    id NUMBER PRIMARY KEY,
-    product_id NUMBER NOT NULL,
-    addr VARCHAR2(260) NOT NULL,		-- windows 10의 file path max limit = 260
-    CONSTRAINT FK_PRODUCTIMAGE_PRODUCT
-        FOREIGN KEY(product_id)
-        REFERENCES product(id)
-        ON DELETE CASCADE
-);
-------- 이 테이블 삭제 예정
-
 CREATE TABLE customer (
     id NUMBER PRIMARY KEY,
     username VARCHAR(30) NOT NULL,
     password VARCHAR(30) NOT NULL,
     phone VARCHAR(15) NOT NULL,
     email VARCHAR(30) NOT NULL,
-    address VARCHAR(100) NOT NULL,
+    address VARCHAR(300) NOT NULL,
     registerDate TIMESTAMP NOT NULL
+    zipNo NUMBER(5,0)
 );
 
 CREATE TABLE review (

@@ -21,8 +21,9 @@ function jusoCallBack(roadFullAddr, zipNo){
 		// document.form.roadFullAddr.value = roadFullAddr;
 		var tfAddress = document.querySelector("#address");
 		tfAddress.value = roadFullAddr;
+		var tfZipNo = document.querySelector("#zipno");
+		tfZipNo.value = zipNo;
 		
-		// input type="hidden" 필드에 우편번호(zipNo)를 넘기면 될 듯
 }
 
 //------------------- juso.go.kr 라이브러리 함수 (끝) ----------------
