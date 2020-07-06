@@ -17,6 +17,8 @@ public class OrdersSaveOrderAction implements Action {
 		
 		// "imp_uid=" + rsp.imp_uid + "&merchant_uid=" + rsp.merchant_uid
 		// "&paid_amount=" + rsp.paid_amount + "&apply_num=" + rsp.apply_num
+		
+		/*
 		String imp_uid = request.getParameter("imp_uid");
 		String merchant_uid = request.getParameter("merchant_uid");
 		String paid_amount = request.getParameter("paid_amount");
@@ -29,7 +31,7 @@ public class OrdersSaveOrderAction implements Action {
 				) {
 			Script.getMessage("결제가 처리되지 못했습니다(필수 4개 파라메터를 받지 못함)", response);
 		}
-		
+		*/
 		
 		
 		

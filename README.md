@@ -75,24 +75,6 @@ CREATE TABLE review (
 );
 
 
--- 삭제 예정
-CREATE TABLE orders (
-    id NUMBER PRIMARY KEY,
-    customer_id NUMBER,
-    orders_date TIMESTAMP NOT NULL,
-    shipping_address VARCHAR2(100) NOT NULL,
-    recipient_name VARCHAR2(15) NOT NULL,
-    recipient_phone VARCHAR(15) NOT NULL,
-    payment VARCHAR2(30) NOT NULL,
-    total NUMBER,
-    status VARCHAR(30),
-    CONSTRAINT FK_CUSTOMER_ORDERS
-        FOREIGN KEY(customer_id)
-        REFERENCES customer(id)
-        ON DELETE CASCADE
-);
--- 삭제 예정
-
 
 CREATE TABLE orders (
     id NUMBER PRIMARY KEY,
@@ -102,10 +84,6 @@ CREATE TABLE orders (
     email VARCHAR(30) NOT NULL,
     address VARCHAR2(300) NOT NULL,
     zipNo NUMBER(5,0),
-    IMP_UID VARCHAR(30),
-    MERCHANT_UID VARCHAR(30),
-    PAID_AMOUNT NUMBER,
-    APPLY_NUM VARCHAR(30),
     recipient_name VARCHAR2(15) NOT NULL,
     payment VARCHAR2(30) NOT NULL,
     total NUMBER,
@@ -115,6 +93,17 @@ CREATE TABLE orders (
         REFERENCES customer(id)
         ON DELETE CASCADE
 );
+
+
+CREATE TABLE payresult (
+    id NUMBER PRIMARY KEY,
+    IMP_UID VARCHAR(30),
+    MERCHANT_UID VARCHAR(30),
+    PAID_AMOUNT NUMBER,
+    APPLY_NUM VARCHAR(30)
+);
+
+
 
 
 CREATE TABLE item (

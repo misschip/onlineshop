@@ -65,7 +65,7 @@
                 
                 $.ajax({
                 	type: "post",
-    	    		url: "/onlineshop/orders?cmd=saveOrder",
+    	    		url: "/onlineshop/orders?cmd=saveResult",
     	    		// data: "id="+id+"&totalPrice="+totalPrice,
     	    		data: "imp_uid=" + rsp.imp_uid + "&merchant_uid=" + rsp.merchant_uid + "&paid_amount=" + rsp.paid_amount + "&apply_num=" + rsp.apply_num,
     	    		contentType: "application/x-www-form-urlencoded; charset=utf-8",

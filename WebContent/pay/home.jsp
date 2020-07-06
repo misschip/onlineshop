@@ -82,7 +82,8 @@ img {
 		<div class="col-sm-7">
 			<div class="row border border-left-0 border-right-0">
 				
-				<form id="payForm" action="/onlineshop/pay/payForm.jsp" style="width:60%" method="POST">
+				<%-- <form id="payForm" action="/onlineshop/pay/payForm.jsp" style="width:60%" method="POST"> --%>
+				<form id="payForm" action="/onlineshop/orders?cmd=saveOrder" style="width:60%" method="POST">
 						<input type="checkbox" checked="checked" id="checkAddr" onchange="shippingAddr();"> 
 					    <label>&nbsp;주소지와 동일</label><br/><br/>
 					    
