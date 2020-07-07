@@ -16,9 +16,11 @@ public class Orders {
 	private int id;
 	private int customer_id;
 	private Timestamp orders_date;
-	private String shipping_address;
 	private String recipient_name;
-	private String recipient_phone;
+	private String phone;
+	private String email;
+	private String address;
+	private String zipno;
 	private String payment;
 	private int total;
 	private String status;

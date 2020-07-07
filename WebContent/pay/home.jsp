@@ -74,7 +74,18 @@ img {
 
 	</div>
 	
-	<br/><br/><br/><br/><br/>
+	<br/><br/><br/>
+	<div class="row">
+		<div class="col-sm-12">
+			<div align="right">
+				<h4>결제방법</h4>
+				<select id="payment">
+				
+				</select>
+			</div>
+		</div>
+	</div>
+	<br/><br/><br/>
 	
 	
 	<h4>배송지 정보</h4>
@@ -88,25 +99,28 @@ img {
 					    <label>&nbsp;주소지와 동일</label><br/><br/>
 					    
 						<label>이름:</label>
-					    <input type="text" class="form-control" value="${principal.username}" id="username">
+					    <input type="text" class="form-control" value="${principal.username}" id="recipient_name" name="recipient_name">
 					    	 
 					    <label>배송주소:</label>
 					    <button type="button" class="btn btn-warning float-right" onClick="goPopup()">주소검색</button>
-					    <input type="text" class="form-control" value="${principal.address}" id="address">
+					    <input type="text" class="form-control" value="${principal.address}" id="address" name="address">
 
 						<label>우편번호:</label>
-					    <input type="text" class="form-control" value="${principal.zipNo}" id="zipno">
+					    <input type="text" class="form-control" value="${principal.zipNo}" id="zipno" name="zipno">
 
 					    <label>전화번호:</label>
-					    <input type="text" class="form-control" value="${principal.phone}" id="phone">
+					    <input type="text" class="form-control" value="${principal.phone}" id="phone" name="phone">
 
 
 					    <label>이메일:</label>
-					    <input type="text" class="form-control" value="${principal.email}" id="email">
+					    <input type="text" class="form-control" value="${principal.email}" id="email" name="email">
 					
 						<input type="hidden" value="${total}" id="totalPrice" name="totalPrice"> <%-- 결제 총액 --%>
 									<%-- 장바구니에 모든 구매품과 수량이 들어있고 이 정보는 세션에 이미 존재하므로 --%>
-				</form> 			<%-- 여기서는 총액 정도만 넘겨 주고 다음 단계에서 총액 비교함으로써 간단한 검증을 하면 될 듯 --%>
+				 			<%-- 여기서는 총액 정도만 넘겨 주고 다음 단계에서 총액 비교함으로써 간단한 검증을 하면 될 듯 --%>
+				
+						<input type="hidden" value="" id="payment" name="payment"/>
+				</form>
 			</div>
 		</div>
 	</div>

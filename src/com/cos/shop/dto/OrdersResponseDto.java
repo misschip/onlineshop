@@ -11,6 +11,5 @@ import lombok.Data;
 public class OrdersResponseDto {
 
 	private Orders orders;
-	private Customer customer;
 	private List<ItemResponseDto> itemDtos;
 }
