@@ -23,5 +23,5 @@ public class Orders {
 	private String zipno;
 	private String payment;
 	private int total;
-	private String status;
+	private String status;	// 결제완료, 배송중, 배송완료. enum 타입으로?
 }

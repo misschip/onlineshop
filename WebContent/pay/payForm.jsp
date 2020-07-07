@@ -25,17 +25,16 @@
 
   	initStage();
  
-  	finalPay('${param.totalPrice}');
+  	finalPay('${param.orders_id}', '${param.totalPrice}');
 
 
   	function initStage() {
 		// var cartJson = '${cart}';
 		// var principalJson = '${principalJson}';
 
-		
   	}
   	
-    function finalPay(totalPrice) {
+    function finalPay(orders_id, totalPrice) {
     	console.log("finalPay 함수가 실행됨");
     	
         var IMP = window.IMP; // 생략가능
@@ -56,7 +55,7 @@
         }, function (rsp) {
             if (rsp.success) {
                 var msg = '결제가 완료되었습니다.';
-                alert('결제가 완료되었습니다.');
+                alert(msg);
                 msg += '고유ID : ' + rsp.imp_uid;
                 msg += '상점 거래ID : ' + rsp.merchant_uid;
                 msg += '결제 금액 : ' + rsp.paid_amount;
@@ -67,12 +66,14 @@
                 	type: "post",
     	    		url: "/onlineshop/orders?cmd=saveResult",
     	    		// data: "id="+id+"&totalPrice="+totalPrice,
-    	    		data: "imp_uid=" + rsp.imp_uid + "&merchant_uid=" + rsp.merchant_uid + "&paid_amount=" + rsp.paid_amount + "&apply_num=" + rsp.apply_num,
+    	    		data: "orders_id=" + orders_id + "&imp_uid=" + rsp.imp_uid + "&merchant_uid=" + rsp.merchant_uid + "&paid_amount=" + rsp.paid_amount + "&apply_num=" + rsp.apply_num,
     	    		contentType: "application/x-www-form-urlencoded; charset=utf-8",
     	    		dataType: "text"
                 	
-                }).done(function(result){	// result가 성공적인 orderId값
-                	location.href="/onlineshop/orders?cmd=display&id="+result;
+                }).done(function(result){
+                    console.log("결제 최종성공");
+                	// location.href="/onlineshop/orders?cmd=display&id="+orders_id;
+                	
                 }).fail(function(error) {
                 	alert("결제가 비정상적으로 처리됨. 관리자에게 문의 하세요.");
                 })

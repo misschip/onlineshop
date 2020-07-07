@@ -3,12 +3,12 @@ package com.cos.shop.repository;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.cos.shop.db.DBConn;
-import com.cos.shop.dto.OrdersResponseDto;
-import com.cos.shop.model.Customer;
 import com.cos.shop.model.Orders;
 
 
@@ -26,13 +26,53 @@ public class OrdersRepository {
 	private ResultSet rs = null;
 	
 	
+	// 특이점
+	//	- 반환값이 INSERT문의 성공여부를 가리키는 -1,0,1 중의 어떤 값이 아니라
+	//	  ORDERS_SEQ.NEXTVAL이 생성한 값을 반환!
 	public int save(Orders order) {
-		final String SQL = "";
+		final String SQL = "INSERT INTO orders (id,customer_id,orders_date,phone,email,address,zipno,recipient_name,payment,total,status) "
+						+ " VALUES (ORDERS_SEQ.NEXTVAL,?,sysdate,?,?,?,?,?,?,?,?)";
 		
 		try {
 			conn = DBConn.getConnection();
+			// prepareStatement()의 두번째 매개값으로 준 상수값은 getGeneratedKeys() 메서드를 사용하기 위한 준비
+			// pstmt = conn.prepareStatement(SQL,  Statement.RETURN_GENERATED_KEYS);
 			pstmt = conn.prepareStatement(SQL);
 			
+			pstmt.setInt(1, order.getCustomer_id());
+			pstmt.setString(2, order.getPhone());
+			pstmt.setString(3, order.getEmail());
+			pstmt.setString(4, order.getAddress());
+			pstmt.setString(5, order.getZipno());
+			pstmt.setString(6, order.getRecipient_name());
+			pstmt.setString(7, order.getPayment());
+			pstmt.setInt(8, order.getTotal());
+			pstmt.setString(9, order.getStatus());
+			
+			int result = pstmt.executeUpdate();
+			// return result;
+			
+			// INSERT 명령이 성공적으로 수행된 경우
+			if (result == 1) {
+				System.out.println("OrdersReposity: save: 저장성공");
+				rs = pstmt.getGeneratedKeys();
+				
+				/*
+				ResultSetMetaData rsmd = rs.getMetaData();
+				int colCount= rsmd.getColumnCount();
+				String label = rsmd.getColumnLabel(1);
+				String colType = rsmd.getColumnTypeName(1);
+				System.out.println(TAG + "save : colCount: " + colCount);
+				System.out.println(TAG + "save : column label : " + label);
+				System.out.println(TAG + "save : column type : " + colType);
+				*/
+				
+				if (rs.next()) {
+					int seq_value = rs.getInt(1);
+					return seq_value;
+				}
+				
+			}
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -87,7 +127,7 @@ public class OrdersRepository {
 	
 	
 	public List<Orders> findAll() {
-		final String SQL = "SELECT id,customer_id,orders_date,shipping_address,recipient_name,recipient_phone,payment,total,status "
+		final String SQL = "SELECT id,customer_id,orders_date,address,recipient_name,phone,payment,total,status "
 								+ " FROM orders";
 		List<Orders> orders = new ArrayList<>();
 		
@@ -102,9 +142,9 @@ public class OrdersRepository {
 				Orders order = Orders.builder()
 						.id(rs.getInt("id"))
 						.orders_date(rs.getTimestamp("orders_date"))
-						.shipping_address(rs.getString("shipping_address"))
+						.address(rs.getString("address"))
 						.recipient_name(rs.getString("recipient_name"))
-						.recipient_phone(rs.getString("recipient_phone"))
+						.phone(rs.getString("phone"))
 						.payment(rs.getString("payment"))
 						.total(rs.getInt("total"))
 						.status(rs.getString("status"))

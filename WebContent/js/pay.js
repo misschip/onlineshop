@@ -72,3 +72,10 @@
     		$("#email").val("");
     	}
     }
+    
+    
+    function syncWithHiddenField() {
+    	var payType = $("#payType").val();
+    	$("#payment").val(payType);
+    	console.log(payType);
+    }

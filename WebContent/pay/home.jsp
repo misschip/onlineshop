@@ -76,11 +76,14 @@ img {
 	
 	<br/><br/><br/>
 	<div class="row">
-		<div class="col-sm-12">
+		<div class="col-sm-11">
 			<div align="right">
 				<h4>결제방법</h4>
-				<select id="payment">
-				
+				<select id="payType" name="payType" onchange="syncWithHiddenField()">
+					<option value="신용카드">신용카드</option>
+					<option value="계좌이체">계좌이체</option>
+					<option value="휴대폰">휴대폰</option>
+					<option value="기타">기타</option>
 				</select>
 			</div>
 		</div>
@@ -119,6 +122,7 @@ img {
 									<%-- 장바구니에 모든 구매품과 수량이 들어있고 이 정보는 세션에 이미 존재하므로 --%>
 				 			<%-- 여기서는 총액 정도만 넘겨 주고 다음 단계에서 총액 비교함으로써 간단한 검증을 하면 될 듯 --%>
 				
+						<%-- 위 결제방법 옵션에서 선택한 값이 바뀔 때마다 아래 필드로 전달됨 --%>
 						<input type="hidden" value="" id="payment" name="payment"/>
 				</form>
 			</div>

@@ -158,6 +158,11 @@ CREATE SEQUENCE orders_seq
 CREATE SEQUENCE review_seq
     START WITH 1
     INCREMENT BY 1;
+    
+CREATE SEQUENCE payresult_seq
+    START WITH 1
+    INCREMENT BY 1;
+    
 ````
 
 

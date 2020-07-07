@@ -323,6 +323,7 @@ public class ProductRepository {
 		return -1;
 	}
 	
+	// product_seq.nextval 명령이 가장 최근에 발생(반환)한 값을 알아내기
 	public int getLastPid(Connection conn) {
 		final String SQL = "SELECT product_seq.currval FROM DUAL";
 		

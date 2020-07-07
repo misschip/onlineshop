@@ -7,16 +7,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.cos.shop.db.DBConn;
-import com.cos.shop.model.Customer;
-import com.cos.shop.model.Item;
+import com.cos.shop.model.PayResult;
 
+public class PayResultRepository {
+	private static final String TAG = "PayResultRepository : ";
 
-public class ItemRepository {
-	private static final String TAG = "ItemRepository : ";
-
-	private static ItemRepository instance = new ItemRepository();
-	private ItemRepository() {}
-	public static ItemRepository getInstance() {
+	private static PayResultRepository instance = new PayResultRepository();
+	private PayResultRepository() {}
+	public static PayResultRepository getInstance() {
 		return instance;
 	}
 	
@@ -25,19 +23,20 @@ public class ItemRepository {
 	private ResultSet rs = null;
 	
 	
-	public int save(Item item) {
-		final String SQL = "INSERT INTO item (id,orders_id,product_id,quantity,unit_price) "
-							+ " VALUES (ITEM_SEQ.NEXTVAL,?,?,?,?)";
+	public int save(PayResult payResult) {
+		final String SQL = "INSERT INTO payresult (id,orders_id,imp_uid,merchant_uid,paid_amount,apply_num) "
+							+ " VALUES (PAYRESULT_SEQ.NEXTVAL,?,?,?,?,?)";
 		
 		try {
 			conn = DBConn.getConnection();
 			pstmt = conn.prepareStatement(SQL);
 			
-			pstmt.setInt(1, item.getOrders_id());
-			pstmt.setInt(2, item.getProduct_id());
-			pstmt.setInt(3, item.getQuantity());
-			pstmt.setInt(4, item.getUnit_price());
-			
+			pstmt.setInt(1, payResult.getOrders_id());
+			pstmt.setString(2, payResult.getImp_uid());
+			pstmt.setString(3, payResult.getMerchant_uid());
+			pstmt.setInt(4, payResult.getPaid_amount());
+			pstmt.setString(5, payResult.getApply_num());
+
 			int result = pstmt.executeUpdate();
 			
 			return result;
@@ -52,7 +51,7 @@ public class ItemRepository {
 	}
 	
 	
-	public int update(Item item) {
+	public int update(PayResult result) {
 		final String SQL = "";
 		
 		try {
@@ -73,7 +72,7 @@ public class ItemRepository {
 	
 	
 	public int deleteById(int id) {
-		final String SQL = "DELETE FROM item WHERE id = ?";
+		final String SQL = "DELETE FROM orders WHERE id = ?";
 		
 		try {
 			conn = DBConn.getConnection();
@@ -93,9 +92,9 @@ public class ItemRepository {
 
 	
 	
-	public List<Item> findAll() {
-		final String SQL = "SELECT  FROM item";
-		List<Item> items = new ArrayList<>();
+	public List<PayResult> findAll() {
+		final String SQL = "SELECT  FROM orders";
+		List<PayResult> results = new ArrayList<>();
 		
 		try {
 			conn = DBConn.getConnection();
@@ -105,15 +104,15 @@ public class ItemRepository {
 			rs = pstmt.executeQuery();
 			// while 돌려서 리스트에 넣기
 			while(rs.next()) {
-				Item item = Item.builder()
+				PayResult result = PayResult.builder()
 						.id(rs.getInt("id"))
 						
 						.build();
 				
-				items.add(item);
+				results.add(result);
 			}
 			
-			return items;
+			return results;
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println(TAG + "findAll : " + e.getMessage());

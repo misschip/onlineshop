@@ -4,6 +4,7 @@ import javax.servlet.annotation.WebServlet;
 
 import com.cos.shop.action.Action;
 import com.cos.shop.action.orders.OrdersSaveOrderAction;
+import com.cos.shop.action.orders.OrdersSaveResultAction;
 
 @WebServlet("/orders")
 public class OrdersController extends AbstractController {
@@ -12,7 +13,10 @@ public class OrdersController extends AbstractController {
 	Action router(String cmd) {
 		if (cmd.equals("saveOrder")) {
 			return new OrdersSaveOrderAction();	
+		} else if (cmd.equals("saveResult")) {
+			return new OrdersSaveResultAction();	
 		}
+		
 		return null;
 	}
 
