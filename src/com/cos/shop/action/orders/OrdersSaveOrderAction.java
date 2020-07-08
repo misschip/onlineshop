@@ -105,8 +105,9 @@ public class OrdersSaveOrderAction implements Action {
 		// 장바구니에 든 상품과 상품별 수량 값을 가져와 Item 테이블에 저장
 		Iterator<Map.Entry<Product,Integer>> it = cart.entrySet().iterator();
 		while (it.hasNext()) {
-			Product p = it.next().getKey();	// 상품
-			int qty = it.next().getValue();	// 수량
+			Map.Entry<Product, Integer> entry = it.next();
+			Product p = entry.getKey();	// 상품
+			int qty = entry.getValue();	// 수량
 			
 			Item item = Item.builder()
 					.orders_id(orders_id)
@@ -128,7 +129,7 @@ public class OrdersSaveOrderAction implements Action {
 		request.setAttribute("orders_id", orders_id);
 		
 		// 외부 결제 모듈로 리다이렉트
-		RequestDispatcher dis = request.getRequestDispatcher("payForm.jsp");
+		RequestDispatcher dis = request.getRequestDispatcher("pay/payForm.jsp");
 		dis.forward(request, response);
 		
 	}

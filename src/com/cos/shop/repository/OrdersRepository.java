@@ -37,7 +37,7 @@ public class OrdersRepository {
 			conn = DBConn.getConnection();
 			// prepareStatement()의 두번째 매개값으로 준 상수값은 getGeneratedKeys() 메서드를 사용하기 위한 준비
 			// pstmt = conn.prepareStatement(SQL,  Statement.RETURN_GENERATED_KEYS);
-			pstmt = conn.prepareStatement(SQL);
+			pstmt = conn.prepareStatement(SQL,  new String[]{"id"});
 			
 			pstmt.setInt(1, order.getCustomer_id());
 			pstmt.setString(2, order.getPhone());
@@ -68,8 +68,9 @@ public class OrdersRepository {
 				*/
 				
 				if (rs.next()) {
-					int seq_value = rs.getInt(1);
-					return seq_value;
+					long seq_value = rs.getLong(1);
+					System.out.println(TAG + "save :");
+					return (int)seq_value;
 				}
 				
 			}
