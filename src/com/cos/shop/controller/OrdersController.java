@@ -15,6 +15,8 @@ public class OrdersController extends AbstractController {
 			return new OrdersSaveOrderAction();	
 		} else if (cmd.equals("saveResult")) {
 			return new OrdersSaveResultAction();	
+		} else if (cmd.equals("home")) {
+			return new OrdersHomeAction();	
 		}
 		
 		return null;

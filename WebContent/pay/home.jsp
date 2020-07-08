@@ -123,7 +123,8 @@ img {
 				 			<%-- 여기서는 총액 정도만 넘겨 주고 다음 단계에서 총액 비교함으로써 간단한 검증을 하면 될 듯 --%>
 				
 						<%-- 위 결제방법 옵션에서 선택한 값이 바뀔 때마다 아래 필드로 전달됨 --%>
-						<input type="hidden" value="" id="payment" name="payment"/>
+						<%-- onchange 이벤트 발생해야 값이 아래로 넘어오므로, 아래에 기본값 value 지정 않으면 null값이 submit 되는 상황이 생김 --%>
+						<input type="hidden" value="신용카드" id="payment" name="payment"/>
 				</form>
 			</div>
 		</div>

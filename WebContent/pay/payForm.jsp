@@ -23,19 +23,16 @@
 	<!-- [2] -->
   <script>
 
-  	initStage();
- 
-  	finalPay('${param.orders_id}', '${param.totalPrice}');
+  	 // '${param.orders_id}', '${param.totalPrice}'로 하면 orders_id는 못 받아오고 totalPrice 값만 받아오는 현상
+  	 // -> totalPrice는 request의 parameter값이기도 하면서 request.getAttribute()로도 받아올 수 있도록 이전 페이지에서 설정된 반면,
+  	 //	   orders_id는 request의 parameter가 아니라 request.getAttribute()로만 받아올 수 있도록 설정된 값이다.
+  	finalPay('${orders_id}', '${totalPrice}');
 
-
-  	function initStage() {
-		// var cartJson = '${cart}';
-		// var principalJson = '${principalJson}';
-
-  	}
   	
     function finalPay(orders_id, totalPrice) {
     	console.log("finalPay 함수가 실행됨");
+    	console.log("finalPay 함수안 : orders_id : ", orders_id);
+    	console.log("finalPay 함수안 : totalPrice : ", totalPrice);
     	
         var IMP = window.IMP; // 생략가능
         IMP.init('imp19191445'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
@@ -61,6 +58,7 @@
                 msg += '결제 금액 : ' + rsp.paid_amount;
                 msg += '카드 승인번호 : ' + rsp.apply_num;
                 console.log(msg);	// msg에 표출되는 값들을 db에 저장해둬야 나중에 환불 등의 추후 조치가 가능함
+                console.log("여기까지 값을 가져올까? orders_id : ", orders_id);
                 
                 $.ajax({
                 	type: "post",

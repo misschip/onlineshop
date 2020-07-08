@@ -17,5 +17,5 @@ public class Item {
 	private int product_id;
 	private int quantity;
 	private int unit_price;
-	private int total;
+	// private int total;	// 삭제한 필드
 }

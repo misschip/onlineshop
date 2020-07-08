@@ -69,7 +69,7 @@ public class OrdersRepository {
 				
 				if (rs.next()) {
 					long seq_value = rs.getLong(1);
-					System.out.println(TAG + "save :");
+					System.out.println(TAG + "save : seq_val : " + seq_value);
 					return (int)seq_value;
 				}
 				
