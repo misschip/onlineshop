@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.cos.shop.action.Action;
+import com.cos.shop.dto.OrdersResponseDto;
 import com.cos.shop.model.Customer;
-import com.cos.shop.model.Orders;
 import com.cos.shop.repository.OrdersRepository;
 import com.cos.shop.util.Script;
 
@@ -28,7 +28,7 @@ public class OrdersHomeAction implements Action {
 		int customer_id = customer.getId();
 		
 		OrdersRepository ordersRepository = OrdersRepository.getInstance();
-		List<Orders> orders = ordersRepository.getByCustomer(customer_id);
+		List<OrdersResponseDto> ordersDtos = ordersRepository.getByCustomer(customer_id);
 		
 		
 	}

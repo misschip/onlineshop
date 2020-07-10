@@ -3,12 +3,11 @@ package com.cos.shop.repository;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.cos.shop.db.DBConn;
+import com.cos.shop.dto.OrdersResponseDto;
 import com.cos.shop.model.Orders;
 
 
@@ -26,9 +25,61 @@ public class OrdersRepository {
 	private ResultSet rs = null;
 	
 	
+
+	
+	public List<OrdersResponseDto> findByCustomer() {
+		final String SQL = "SELECT id,customer_id,orders_date,phone,email,address,zipno,recipient_name,payment,total,status, "	// orders 테이블
+							+ " id,orders_id,product_id,quantity,unit_price, "													// item 테이블
+							+ " id,category_id,name,description,price,image1 "													// product 테이블
+								+ " FROM orders o "
+								+ " INNER JOIN item i "	
+									+ " ON o.id = i.orders_id "
+								+ " INNER JOIN product p "
+									+ " ON i.product_id = p.id ";
+		
+		List<Orders> orders = new ArrayList<>();
+		
+		try {
+			conn = DBConn.getConnection();
+			pstmt = conn.prepareStatement(SQL);
+			// 물음표 완성하기
+			
+			rs = pstmt.executeQuery();
+			// while 돌려서 리스트에 넣기
+			while(rs.next()) {
+				Orders order = Orders.builder()
+						.id(rs.getInt("id"))
+						.orders_date(rs.getTimestamp("orders_date"))
+						.address(rs.getString("address"))
+						.recipient_name(rs.getString("recipient_name"))
+						.phone(rs.getString("phone"))
+						.payment(rs.getString("payment"))
+						.total(rs.getInt("total"))
+						.status(rs.getString("status"))
+						.build();
+				
+				orders.add(order);
+			}
+			
+			return orders;
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println(TAG + "findAll : " + e.getMessage());
+		} finally {
+			DBConn.close(conn, pstmt, rs);
+		}
+		return null;
+	}	
+	
+	
+	
+	
 	// 특이점
 	//	- 반환값이 INSERT문의 성공여부를 가리키는 -1,0,1 중의 어떤 값이 아니라
 	//	  ORDERS_SEQ.NEXTVAL이 생성한 값을 반환!
+	//	  이것을 위해 중요한 두가지 포인트
+	//		1. conn.prepareStatement(SQL,  new String[]{"id"});
+	//		2. rs = pstmt.getGeneratedKeys();
 	public int save(Orders order) {
 		final String SQL = "INSERT INTO orders (id,customer_id,orders_date,phone,email,address,zipno,recipient_name,payment,total,status) "
 						+ " VALUES (ORDERS_SEQ.NEXTVAL,?,sysdate,?,?,?,?,?,?,?,?)";
