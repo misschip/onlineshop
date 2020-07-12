@@ -26,16 +26,10 @@ public class OrdersRepository {
 	
 	
 
-	
-	public List<OrdersResponseDto> findByCustomer() {
-		final String SQL = "SELECT id,customer_id,orders_date,phone,email,address,zipno,recipient_name,payment,total,status, "	// orders 테이블
-							+ " id,orders_id,product_id,quantity,unit_price, "													// item 테이블
-							+ " id,category_id,name,description,price,image1 "													// product 테이블
-								+ " FROM orders o "
-								+ " INNER JOIN item i "	
-									+ " ON o.id = i.orders_id "
-								+ " INNER JOIN product p "
-									+ " ON i.product_id = p.id ";
+	// 고객별 주문 리스트
+	public List<Orders> findByCustomer(int customer_id) {
+		final String SQL = "SELECT id,customer_id,orders_date,phone,email,address,zipno,recipient_name,payment,total,status "
+							+ " FROM orders WHERE customer_id = ?";
 		
 		List<Orders> orders = new ArrayList<>();
 		
@@ -43,28 +37,33 @@ public class OrdersRepository {
 			conn = DBConn.getConnection();
 			pstmt = conn.prepareStatement(SQL);
 			// 물음표 완성하기
+			pstmt.setInt(1,customer_id);
 			
 			rs = pstmt.executeQuery();
+		
 			// while 돌려서 리스트에 넣기
 			while(rs.next()) {
+	
 				Orders order = Orders.builder()
-						.id(rs.getInt("id"))
-						.orders_date(rs.getTimestamp("orders_date"))
-						.address(rs.getString("address"))
-						.recipient_name(rs.getString("recipient_name"))
-						.phone(rs.getString("phone"))
-						.payment(rs.getString("payment"))
-						.total(rs.getInt("total"))
-						.status(rs.getString("status"))
-						.build();
+					.id(rs.getInt("id"))
+					.customer_id(rs.getInt("customer_id"))
+					.orders_date(rs.getTimestamp("orders_date"))
+					.address(rs.getString("address"))
+					.recipient_name(rs.getString("recipient_name"))
+					.phone(rs.getString("phone"))
+					.email(rs.getString("email"))
+					.payment(rs.getString("payment"))
+					.total(rs.getInt("total"))
+					.status(rs.getString("status"))
+					.build();
 				
 				orders.add(order);
 			}
-			
+
 			return orders;
 		} catch (Exception e) {
 			e.printStackTrace();
-			System.out.println(TAG + "findAll : " + e.getMessage());
+			System.out.println(TAG + "findByCustomer : " + e.getMessage());
 		} finally {
 			DBConn.close(conn, pstmt, rs);
 		}

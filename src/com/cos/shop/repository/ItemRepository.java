@@ -25,6 +25,43 @@ public class ItemRepository {
 	private ResultSet rs = null;
 	
 	
+	public List<Item> findByOrdersId(int orders_id) {
+		final String SQL = "SELECT id,orders_id,product_id,quantity,unit_price "
+					+ " FROM item WHERE orders_id = ?";
+		List<Item> items = new ArrayList<>();
+		
+		try {
+			conn = DBConn.getConnection();
+			pstmt = conn.prepareStatement(SQL);
+			// 물음표 완성하기
+			pstmt.setInt(1, orders_id);
+			
+			rs = pstmt.executeQuery();
+			// while 돌려서 리스트에 넣기
+			while(rs.next()) {
+				Item item = Item.builder()
+						.id(rs.getInt("id"))
+						.orders_id(rs.getInt("orders_id"))
+						.product_id(rs.getInt("product_id"))
+						.quantity(rs.getInt("quantity"))
+						.unit_price(rs.getInt("unit_price"))
+						.build();
+				
+				items.add(item);
+			}
+			
+			return items;
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println(TAG + "findByOrdersId : " + e.getMessage());
+		} finally {
+			DBConn.close(conn, pstmt, rs);
+		}
+		return null;
+	}	
+	
+	
+	
 	public int save(Item item) {
 		final String SQL = "INSERT INTO item (id,orders_id,product_id,quantity,unit_price) "
 							+ " VALUES (ITEM_SEQ.NEXTVAL,?,?,?,?)";

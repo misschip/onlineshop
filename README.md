@@ -52,7 +52,7 @@ CREATE TABLE customer (
     phone VARCHAR(15) NOT NULL,
     email VARCHAR(30) NOT NULL,
     address VARCHAR(300) NOT NULL,
-    registerDate TIMESTAMP NOT NULL
+    registerDate TIMESTAMP NOT NULL,
     zipNo NUMBER(5,0)
 );
 
@@ -211,6 +211,7 @@ INSERT INTO CATEGORY VALUES(32,'여행/도서/티켓','공연티켓');
 ````
 
 ### Customer 테이블
+(추가된 zipno 열 데이터가 없음)
 
 ````sql
 INSERT INTO customer values (1,'ssar','1234','010-1111-2222','ssar@nate.com','부산시 중구',sysdate);

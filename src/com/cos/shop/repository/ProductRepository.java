@@ -28,6 +28,11 @@ public class ProductRepository {
 	
 	
 	
+
+	
+	
+	
+	
 	public int countByKeyword(String keyword) {
 		final String SQL = "SELECT count(*) FROM product "
 				+ " WHERE name LIKE ? OR description LIKE ?";
